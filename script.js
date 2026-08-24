@@ -1,13 +1,13 @@
 /* =====================================================
-   YOUTH CARING HEART — JAVASCRIPT
-   ===================================================== */
+   YOUTH CARING HEART — script.js
+===================================================== */
 
 /* ================= MOBILE MENU ================= */
 
-function toggleMenu() {
+function toggleMenu(){
   const nav = document.getElementById("nav");
 
-  if (nav) {
+  if(nav){
     nav.classList.toggle("mobile-open");
   }
 }
@@ -15,490 +15,893 @@ function toggleMenu() {
 
 /* ================= DARK MODE ================= */
 
-function toggleDark() {
+function toggleDark(){
+
   document.body.classList.toggle("dark");
 
-  const isDark = document.body.classList.contains("dark");
+  const isDark =
+    document.body.classList.contains("dark");
 
-  localStorage.setItem("ych-dark", isDark ? "true" : "false");
+  localStorage.setItem("ych-dark", isDark);
+
 }
 
-if (localStorage.getItem("ych-dark") === "true") {
+
+/* Load saved theme */
+
+if(localStorage.getItem("ych-dark") === "true"){
   document.body.classList.add("dark");
 }
 
 
 /* ================= LANGUAGE ================= */
 
-function setLanguage(language) {
+function setLanguage(lang){
 
-  if (language === "ar") {
+  if(lang === "ar"){
+
     document.documentElement.lang = "ar";
     document.documentElement.dir = "rtl";
 
-    alert("🇲🇦 العربية ستكون متاحة بشكل كامل في النسخة القادمة.");
+    alert("🇲🇦 تم اختيار اللغة العربية.");
+
   }
 
-  else if (language === "fr") {
+  else if(lang === "fr"){
+
     document.documentElement.lang = "fr";
     document.documentElement.dir = "ltr";
 
-    alert("🇫🇷 La version française sera disponible prochainement.");
+    alert("🇫🇷 Français sélectionné.");
+
   }
 
-  else {
+  else{
+
     document.documentElement.lang = "en";
     document.documentElement.dir = "ltr";
+
+    alert("🇬🇧 English selected.");
+
   }
+
 }
 
 
-/* ================= COMPETITION COUNTDOWN ================= */
+/* =====================================================
+   COMPETITION COUNTDOWN
+===================================================== */
 
-function updateCountdowns() {
+function updateCountdowns(){
 
-  const countdowns = document.querySelectorAll(".countdown");
+  document
+    .querySelectorAll(".countdown")
+    .forEach(counter => {
 
-  countdowns.forEach(function (counter) {
+      const date = counter.dataset.date;
 
-    const date = counter.getAttribute("data-date");
+      if(!date) return;
 
-    if (!date) return;
+      const target =
+        new Date(date).getTime();
 
-    const target = new Date(date).getTime();
-    const now = Date.now();
+      const now =
+        Date.now();
 
-    let distance = target - now;
+      let distance =
+        target - now;
 
-    if (distance < 0) {
-      distance = 0;
-    }
+      if(distance < 0){
+        distance = 0;
+      }
 
-    const days = Math.floor(
-      distance / (1000 * 60 * 60 * 24)
-    );
+      const days =
+        Math.floor(
+          distance /
+          (1000 * 60 * 60 * 24)
+        );
 
-    const hours = Math.floor(
-      (distance % (1000 * 60 * 60 * 24)) /
-      (1000 * 60 * 60)
-    );
+      const hours =
+        Math.floor(
+          (distance %
+            (1000 * 60 * 60 * 24)) /
+          (1000 * 60 * 60)
+        );
 
-    const minutes = Math.floor(
-      (distance % (1000 * 60 * 60)) /
-      (1000 * 60)
-    );
+      const minutes =
+        Math.floor(
+          (distance %
+            (1000 * 60 * 60)) /
+          (1000 * 60)
+        );
 
-    const seconds = Math.floor(
-      (distance % (1000 * 60)) /
-      1000
-    );
-
-
-    const daysElement = counter.querySelector(".days");
-    const hoursElement = counter.querySelector(".hours");
-    const minutesElement = counter.querySelector(".minutes");
-    const secondsElement = counter.querySelector(".seconds");
+      const seconds =
+        Math.floor(
+          (distance %
+            (1000 * 60)) /
+          1000
+        );
 
 
-    if (daysElement) {
-      daysElement.textContent =
-        String(days).padStart(2, "0");
-    }
+      const daysElement =
+        counter.querySelector(".days");
 
-    if (hoursElement) {
-      hoursElement.textContent =
-        String(hours).padStart(2, "0");
-    }
+      const hoursElement =
+        counter.querySelector(".hours");
 
-    if (minutesElement) {
-      minutesElement.textContent =
-        String(minutes).padStart(2, "0");
-    }
+      const minutesElement =
+        counter.querySelector(".minutes");
 
-    if (secondsElement) {
-      secondsElement.textContent =
-        String(seconds).padStart(2, "0");
-    }
-  });
+      const secondsElement =
+        counter.querySelector(".seconds");
+
+
+      if(daysElement)
+        daysElement.textContent =
+          String(days).padStart(2,"0");
+
+      if(hoursElement)
+        hoursElement.textContent =
+          String(hours).padStart(2,"0");
+
+      if(minutesElement)
+        minutesElement.textContent =
+          String(minutes).padStart(2,"0");
+
+      if(secondsElement)
+        secondsElement.textContent =
+          String(seconds).padStart(2,"0");
+
+    });
+
 }
+
+
+/* Start countdown */
 
 updateCountdowns();
 
-setInterval(updateCountdowns, 1000);
+setInterval(
+  updateCountdowns,
+  1000
+);
 
 
-/* ================= COMPETITION JOIN ================= */
+/* =====================================================
+   COMPETITION APPLICATION
+===================================================== */
 
-function joinCompetition(name) {
+let selectedCompetition = "";
 
-  alert(
-    "🏆 " +
-    name +
-    "\n\nRegistration selected successfully!\n\n" +
-    "The complete registration system will be connected later."
-  );
+
+/* Open application */
+
+function joinCompetition(name){
+
+  selectedCompetition = name;
+
+  const modal =
+    document.getElementById(
+      "applicationOverlay"
+    );
+
+  const title =
+    document.getElementById(
+      "applicationCompetition"
+    );
+
+  if(title){
+    title.textContent =
+      "🏆 " + name;
+  }
+
+  if(modal){
+    modal.classList.add("active");
+
+    document.body.style.overflow =
+      "hidden";
+  }
+
 }
 
 
-/* ================= COMMUNITY CHAT ================= */
+/* Close application */
 
-function sendChat() {
+function closeApplication(){
 
-  const input = document.getElementById("chatInput");
-  const messages = document.getElementById("chatMessages");
+  const modal =
+    document.getElementById(
+      "applicationOverlay"
+    );
 
-  if (!input || !messages) return;
+  if(modal){
 
-  const text = input.value.trim();
+    modal.classList.remove("active");
 
-  if (!text) return;
+    document.body.style.overflow =
+      "";
+
+  }
+
+}
 
 
-  const message = document.createElement("div");
+/* Close by clicking outside */
 
-  message.className = "message mine";
+document.addEventListener(
+  "click",
+  function(event){
 
-  message.innerHTML = `
-    <small>You</small>
-    <div></div>
-  `;
+    const overlay =
+      document.getElementById(
+        "applicationOverlay"
+      );
 
-  message.querySelector("div").textContent = text;
+    if(
+      overlay &&
+      event.target === overlay
+    ){
 
-  messages.appendChild(message);
+      closeApplication();
+
+    }
+
+  }
+);
+
+
+/* Escape key */
+
+document.addEventListener(
+  "keydown",
+  function(event){
+
+    if(event.key === "Escape"){
+
+      closeApplication();
+
+    }
+
+  }
+);
+
+
+/* =====================================================
+   SUBMIT COMPETITION APPLICATION
+===================================================== */
+
+function submitApplication(event){
+
+  if(event){
+    event.preventDefault();
+  }
+
+
+  const name =
+    document.getElementById(
+      "appName"
+    )?.value.trim();
+
+  const email =
+    document.getElementById(
+      "appEmail"
+    )?.value.trim();
+
+  const phone =
+    document.getElementById(
+      "appPhone"
+    )?.value.trim();
+
+
+  if(!name || !email || !phone){
+
+    alert(
+      "⚠️ Please complete all required fields."
+    );
+
+    return;
+
+  }
+
+
+  const application = {
+
+    competition:
+      selectedCompetition,
+
+    name:
+      name,
+
+    email:
+      email,
+
+    phone:
+      phone,
+
+    date:
+      new Date().toISOString()
+
+  };
+
+
+  /*
+    Prototype storage only.
+
+    Later this can be replaced
+    with a real secure database.
+  */
+
+  const applications =
+    JSON.parse(
+      localStorage.getItem(
+        "ych-applications"
+      ) || "[]"
+    );
+
+
+  applications.push(application);
+
+
+  localStorage.setItem(
+    "ych-applications",
+    JSON.stringify(applications)
+  );
+
+
+  const form =
+    document.getElementById(
+      "applicationForm"
+    );
+
+  const success =
+    document.getElementById(
+      "applicationSuccess"
+    );
+
+
+  if(form){
+
+    form.style.display =
+      "none";
+
+  }
+
+
+  if(success){
+
+    success.classList.add(
+      "active"
+    );
+
+  }
+
+
+}
+
+
+/* =====================================================
+   CHAT
+===================================================== */
+
+function sendChat(){
+
+  const input =
+    document.getElementById(
+      "chatInput"
+    );
+
+  const messages =
+    document.getElementById(
+      "chatMessages"
+    );
+
+
+  if(!input || !messages){
+    return;
+  }
+
+
+  const text =
+    input.value.trim();
+
+
+  if(!text){
+    return;
+  }
+
+
+  const message =
+    document.createElement("div");
+
+  message.className =
+    "message mine";
+
+
+  const small =
+    document.createElement("small");
+
+  small.textContent =
+    "You";
+
+
+  const content =
+    document.createElement("div");
+
+  content.textContent =
+    text;
+
+
+  message.appendChild(
+    small
+  );
+
+  message.appendChild(
+    content
+  );
+
+
+  messages.appendChild(
+    message
+  );
+
 
   input.value = "";
 
-  messages.scrollTop = messages.scrollHeight;
+
+  messages.scrollTop =
+    messages.scrollHeight;
+
+
+  saveChatMessage(text);
+
 }
 
 
-/* ================= CHAT CHANNELS ================= */
+/* Save chat locally */
 
-document.addEventListener("DOMContentLoaded", function () {
+function saveChatMessage(text){
 
-  const channels = document.querySelectorAll(".channel");
+  const messages =
+    JSON.parse(
+      localStorage.getItem(
+        "ych-chat"
+      ) || "[]"
+    );
 
-  channels.forEach(function (channel) {
 
-    channel.addEventListener("click", function () {
+  messages.push({
 
-      channels.forEach(function (item) {
-        item.classList.remove("active");
-      });
+    text:text,
 
-      channel.classList.add("active");
-
-      const header = document.querySelector(".chat-header");
-
-      if (header) {
-        header.innerHTML =
-          channel.textContent +
-          '<span style="float:right;font-size:12px;opacity:.6">Community</span>';
-      }
-    });
+    date:
+      new Date().toISOString()
 
   });
 
-});
 
+  localStorage.setItem(
+    "ych-chat",
+    JSON.stringify(messages)
+  );
 
-/* ================= MEETING ROOM ================= */
-
-function meetingAction(action) {
-
-  if (action === "Leave") {
-
-    alert("📞 You left the meeting.");
-
-    return;
-  }
-
-
-  if (action === "Camera") {
-
-    alert("📹 Camera control selected.");
-
-    return;
-  }
-
-
-  if (action === "Microphone") {
-
-    alert("🎤 Microphone control selected.");
-
-    return;
-  }
-
-
-  if (action === "Screen Share") {
-
-    alert("🖥️ Screen sharing will be connected later.");
-
-    return;
-  }
-
-
-  if (action === "Chat") {
-
-    alert("💬 Meeting chat opened.");
-
-    return;
-  }
 }
 
 
-/* ================= ANNOUNCEMENT MANAGER ================= */
+/* =====================================================
+   MEETING
+===================================================== */
 
-function publishAnnouncement() {
+function meetingAction(action){
 
-  const titleElement =
-    document.getElementById("announcementTitle");
+  if(action === "Leave"){
 
-  const textElement =
-    document.getElementById("announcementText");
+    alert(
+      "📞 You left the meeting."
+    );
 
-  const categoryElement =
-    document.getElementById("announcementCategory");
+    return;
+
+  }
+
+
+  alert(
+    action +
+    " selected.\n\n" +
+    "This feature will be connected to the real meeting system later."
+  );
+
+}
+
+
+/* =====================================================
+   ADMIN — ANNOUNCEMENT
+===================================================== */
+
+function publishAnnouncement(){
+
+  const title =
+    document
+      .getElementById(
+        "announcementTitle"
+      )
+      ?.value.trim();
+
+  const text =
+    document
+      .getElementById(
+        "announcementText"
+      )
+      ?.value.trim();
+
+  const category =
+    document
+      .getElementById(
+        "announcementCategory"
+      )
+      ?.value;
+
+
+  if(!title || !text){
+
+    alert(
+      "⚠️ Please complete the announcement."
+    );
+
+    return;
+
+  }
+
 
   const grid =
-    document.getElementById("announcementGrid");
+    document.getElementById(
+      "announcementGrid"
+    );
 
 
-  if (
-    !titleElement ||
-    !textElement ||
-    !categoryElement ||
-    !grid
-  ) {
+  if(!grid){
     return;
   }
 
 
-  const title = titleElement.value.trim();
+  const card =
+    document.createElement(
+      "article"
+    );
 
-  const text = textElement.value.trim();
-
-  const category = categoryElement.value;
-
-
-  if (!title || !text) {
-
-    alert("⚠️ Please complete the announcement.");
-
-    return;
-  }
+  card.className =
+    "announcement";
 
 
-  const card = document.createElement("article");
+  const poster =
+    document.createElement(
+      "div"
+    );
 
-  card.className = "announcement";
+  poster.className =
+    "announcement-poster";
 
-
-  card.innerHTML = `
-    <div class="poster">📢</div>
-
-    <div class="announcement-body">
-
-      <small>
-        ${category.toUpperCase()}
-      </small>
-
-      <h3></h3>
-
-      <p></p>
-
-    </div>
-  `;
+  poster.textContent =
+    "📢";
 
 
-  card.querySelector("h3").textContent = title;
+  const body =
+    document.createElement(
+      "div"
+    );
 
-  card.querySelector("p").textContent = text;
+  body.className =
+    "announcement-body";
+
+
+  const date =
+    document.createElement(
+      "div"
+    );
+
+  date.className =
+    "announcement-date";
+
+  date.textContent =
+    category.toUpperCase();
+
+
+  const heading =
+    document.createElement(
+      "h3"
+    );
+
+  heading.textContent =
+    title;
+
+
+  const paragraph =
+    document.createElement(
+      "p"
+    );
+
+  paragraph.className =
+    "muted";
+
+  paragraph.textContent =
+    text;
+
+
+  body.appendChild(date);
+  body.appendChild(heading);
+  body.appendChild(paragraph);
+
+  card.appendChild(poster);
+  card.appendChild(body);
 
 
   grid.prepend(card);
 
 
-  titleElement.value = "";
+  saveAnnouncement(
+    title,
+    text,
+    category
+  );
 
-  textElement.value = "";
+
+  clearAnnouncementForm();
 
 
-  alert("📢 Announcement published!");
+  alert(
+    "📢 Announcement published!"
+  );
+
 }
 
 
-/* ================= CLEAR ANNOUNCEMENT ================= */
+/* Save announcement */
 
-function clearAnnouncementForm() {
+function saveAnnouncement(
+  title,
+  text,
+  category
+){
+
+  const announcements =
+    JSON.parse(
+      localStorage.getItem(
+        "ych-announcements"
+      ) || "[]"
+    );
+
+
+  announcements.push({
+
+    title:title,
+
+    text:text,
+
+    category:category,
+
+    date:
+      new Date().toISOString()
+
+  });
+
+
+  localStorage.setItem(
+    "ych-announcements",
+    JSON.stringify(
+      announcements
+    )
+  );
+
+}
+
+
+/* Clear announcement */
+
+function clearAnnouncementForm(){
 
   const title =
-    document.getElementById("announcementTitle");
+    document.getElementById(
+      "announcementTitle"
+    );
 
   const text =
-    document.getElementById("announcementText");
+    document.getElementById(
+      "announcementText"
+    );
 
 
-  if (title) {
+  if(title)
     title.value = "";
-  }
 
-  if (text) {
+
+  if(text)
     text.value = "";
-  }
+
 }
 
 
-/* ================= CREATE COMPETITION ================= */
+/* =====================================================
+   ADMIN — CREATE COMPETITION
+===================================================== */
 
-function createCompetition() {
+function createCompetition(){
 
-  const nameElement =
-    document.getElementById("competitionName");
+  const name =
+    document
+      .getElementById(
+        "competitionName"
+      )
+      ?.value.trim();
 
-  const deadlineElement =
-    document.getElementById("competitionDeadline");
+  const deadline =
+    document
+      .getElementById(
+        "competitionDeadline"
+      )
+      ?.value;
 
-  const typeElement =
-    document.getElementById("competitionType");
-
-
-  if (
-    !nameElement ||
-    !deadlineElement ||
-    !typeElement
-  ) {
-    return;
-  }
-
-
-  const name = nameElement.value.trim();
-
-  const deadline = deadlineElement.value;
-
-  const type = typeElement.value;
+  const type =
+    document
+      .getElementById(
+        "competitionType"
+      )
+      ?.value;
 
 
-  if (!name || !deadline) {
+  if(!name || !deadline){
 
     alert(
       "⚠️ Please complete the competition information."
     );
 
     return;
+
   }
 
 
-  alert(
-    "🏆 Competition created!\n\n" +
-    "Name: " +
-    name +
-    "\nType: " +
-    type +
-    "\nDeadline: " +
-    deadline +
-    "\n\nThe database will be connected in the next stage."
+  const competition = {
+
+    name:name,
+
+    type:type,
+
+    deadline:deadline,
+
+    createdAt:
+      new Date().toISOString()
+
+  };
+
+
+  const competitions =
+    JSON.parse(
+      localStorage.getItem(
+        "ych-competitions"
+      ) || "[]"
+    );
+
+
+  competitions.push(
+    competition
   );
 
 
-  nameElement.value = "";
+  localStorage.setItem(
+    "ych-competitions",
 
-  deadlineElement.value = "";
+    JSON.stringify(
+      competitions
+    )
+  );
+
+
+  alert(
+    "🏆 Competition created successfully!\n\n" +
+    name
+  );
+
+
+  document.getElementById(
+    "competitionName"
+  ).value = "";
+
+  document.getElementById(
+    "competitionDeadline"
+  ).value = "";
+
 }
 
 
-/* ================= DEADLINE NOTIFICATIONS ================= */
+/* =====================================================
+   DEADLINE NOTIFICATIONS
+===================================================== */
 
-function checkDeadlines() {
+function checkDeadlines(){
 
-  const countdowns =
-    document.querySelectorAll(".countdown");
+  document
+    .querySelectorAll(
+      ".countdown"
+    )
+    .forEach(counter => {
 
-
-  countdowns.forEach(function (counter) {
-
-    const date =
-      counter.getAttribute("data-date");
-
-
-    if (!date) return;
-
-
-    const target =
-      new Date(date).getTime();
+      const target =
+        new Date(
+          counter.dataset.date
+        ).getTime();
 
 
-    const remaining =
-      target - Date.now();
+      const remaining =
+        target - Date.now();
 
 
-    const threeDays =
-      1000 * 60 * 60 * 24 * 3;
+      /*
+        3 days before deadline
+      */
+
+      if(
+        remaining > 0 &&
+        remaining <=
+        1000 * 60 * 60 * 24 * 3
+      ){
+
+        console.log(
+          "🔔 Competition deadline is approaching!"
+        );
+
+      }
+
+    });
+
+}
 
 
-    if (
-      remaining > 0 &&
-      remaining <= threeDays
-    ) {
+setInterval(
+  checkDeadlines,
+  60000
+);
 
-      console.log(
-        "🔔 Competition deadline is approaching!"
-      );
-    }
+
+/* =====================================================
+   MOBILE NAVIGATION
+===================================================== */
+
+document
+  .querySelectorAll(".nav a")
+  .forEach(link => {
+
+    link.addEventListener(
+      "click",
+      () => {
+
+        const nav =
+          document.getElementById(
+            "nav"
+          );
+
+        if(nav){
+
+          nav.classList.remove(
+            "mobile-open"
+          );
+
+        }
+
+      }
+    );
 
   });
-}
 
 
-setInterval(checkDeadlines, 60000);
+/* =====================================================
+   INITIALIZATION
+===================================================== */
 
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
 
-/* ================= CLOSE MOBILE MENU ================= */
+    updateCountdowns();
 
-document.addEventListener("click", function (event) {
+    checkDeadlines();
 
-  const nav =
-    document.getElementById("nav");
-
-  const menuButton =
-    document.querySelector(".menu-btn");
-
-
-  if (!nav || !menuButton) return;
-
-
-  if (
-    window.innerWidth <= 900 &&
-    !nav.contains(event.target) &&
-    !menuButton.contains(event.target)
-  ) {
-
-    nav.classList.remove("mobile-open");
   }
-
-});
-
-
-/* ================= ESCAPE KEY ================= */
-
-document.addEventListener("keydown", function (event) {
-
-  if (event.key === "Escape") {
-
-    const nav =
-      document.getElementById("nav");
-
-    if (nav) {
-      nav.classList.remove("mobile-open");
-    }
-  }
-
-});
-
-
-/* ================= STARTUP ================= */
-
-console.log(
-  "❤️ Youth Caring Heart platform loaded successfully."
 );
