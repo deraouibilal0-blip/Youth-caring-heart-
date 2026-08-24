@@ -1,737 +1,1327 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="ar" dir="rtl">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Youth Caring Heart</title>
-  <meta
-    name="description"
-    content="Youth Caring Heart — a simple platform for young people, activities, competitions and positive action."
-  >
+
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+
   <!-- ================= HEADER ================= -->
+
   <header class="header">
-    <a href="#home" class="logo">
-      ❤️ <span>Youth Caring Heart</span>
-    </a>
-    <nav class="nav" id="mainNav">
-      <a href="#home">Home</a>
-      <a href="#dashboard">Dashboard</a>
-      <a href="#activities">Activities</a>
-      <a href="#competitions">🏆 Competitions</a>
-      <a href="#chat">Chat</a>
-      <a href="#announcements">News</a>
-      <a href="#profile">Profile</a>
+
+    <div class="logo">
+      ❤️ Youth Caring Heart
+    </div>
+
+    <button
+      class="mobile-menu"
+      onclick="toggleMenu()"
+      aria-label="فتح القائمة">
+      ☰
+    </button>
+
+    <nav class="nav" id="nav">
+
+      <a href="#home">الرئيسية</a>
+      <a href="#dashboard">لوحة التحكم</a>
+      <a href="#activities">الأنشطة</a>
+      <a href="#competitions">🏆 المسابقات</a>
+      <a href="#announcements">الإعلانات</a>
+      <a href="#chat">المجتمع</a>
+      <a href="#profile">الملف الشخصي</a>
+
     </nav>
+
     <div class="header-actions">
-      <button class="icon-btn" id="themeBtn" title="Dark mode">
+
+      <button
+        class="theme-btn"
+        onclick="toggleDark()">
         🌙
       </button>
-      <button class="language-btn" data-lang="en">
-        EN
-      </button>
-      <button class="language-btn" data-lang="fr">
-        FR
-      </button>
-      <button class="language-btn" data-lang="ar">
+
+      <button
+        class="lang-btn"
+        onclick="setLanguage('ar')">
         AR
       </button>
-      <button class="menu-btn" id="menuBtn">
-        ☰
+
+      <button
+        class="lang-btn"
+        onclick="setLanguage('fr')">
+        FR
       </button>
+
+      <button
+        class="lang-btn"
+        onclick="setLanguage('en')">
+        EN
+      </button>
+
     </div>
+
   </header>
-  <!-- ================= MAIN ================= -->
+
+
   <main>
-    <!-- ================= HERO ================= -->
-    <section class="hero" id="home">
+
+    <!-- ================= HOME ================= -->
+
+    <section
+      class="hero"
+      id="home">
+
       <div class="hero-content">
+
         <span class="hero-label">
-          BERKANE • MOROCCO
+          بركان • المغرب 🇲🇦
         </span>
+
         <h1>
-          Young People.<br>
-          <span>Positive Action.</span>
+          شباب يصنعون
+          <br>
+          <span>تغييرًا إيجابيًا.</span>
         </h1>
+
         <p>
-          A simple youth platform for activities, competitions,
-          communication, creativity and positive action.
+          منصة Youth Caring Heart للشباب،
+          للمشاركة في الأنشطة والمبادرات
+          والمسابقات والتواصل مع المجتمع.
         </p>
-        <div class="hero-buttons">
-          <a href="#dashboard" class="btn btn-primary">
-            Explore Platform
-          </a>
-          <a href="#competitions" class="btn btn-secondary">
-            🏆 Competitions
-          </a>
-        </div>
+
+        <a
+          href="#competitions"
+          class="button">
+          🏆 اكتشف المسابقات
+        </a>
+
       </div>
+
     </section>
+
+
     <!-- ================= DASHBOARD ================= -->
-    <section class="section dashboard-section" id="dashboard">
-      <div class="section-heading">
+
+    <section
+      class="section dashboard-section"
+      id="dashboard">
+
+      <div class="section-title">
+
         <span class="section-label">
-          📊 MEMBER DASHBOARD
+          📊 لوحة الأعضاء
         </span>
+
         <h2>
-          Everything important.<br>
-          In one place.
+          كل ما تحتاجه في مكان واحد.
         </h2>
-        <p>
-          A quick overview designed for students.
+
+        <p class="muted">
+          واجهة بسيطة وسريعة ومناسبة للطلاب.
         </p>
+
       </div>
+
+
       <div class="dashboard-grid">
-        <article class="dashboard-card">
-          <div class="card-icon">🏆</div>
-          <strong class="stat-number">3</strong>
-          <span>Active competitions</span>
-        </article>
-        <article class="dashboard-card">
-          <div class="card-icon">📅</div>
-          <strong class="stat-number">5</strong>
-          <span>Upcoming activities</span>
-        </article>
-        <article class="dashboard-card">
-          <div class="card-icon">📢</div>
-          <strong class="stat-number">2</strong>
-          <span>New announcements</span>
-        </article>
-        <article class="dashboard-card">
-          <div class="card-icon">🔔</div>
-          <strong class="stat-number">4</strong>
-          <span>Notifications</span>
-        </article>
+
+        <div class="dashboard-card">
+
+          <div class="icon">
+            🏆
+          </div>
+
+          <div class="number">
+            3
+          </div>
+
+          <h3>
+            مسابقات نشطة
+          </h3>
+
+          <p class="muted">
+            مسابقات يمكنك المشاركة فيها.
+          </p>
+
+        </div>
+
+
+        <div class="dashboard-card">
+
+          <div class="icon">
+            📅
+          </div>
+
+          <div class="number">
+            5
+          </div>
+
+          <h3>
+            أنشطة قادمة
+          </h3>
+
+          <p class="muted">
+            أنشطة ومبادرات قريبة.
+          </p>
+
+        </div>
+
+
+        <div class="dashboard-card">
+
+          <div class="icon">
+            📢
+          </div>
+
+          <div class="number">
+            2
+          </div>
+
+          <h3>
+            إعلانات جديدة
+          </h3>
+
+          <p class="muted">
+            آخر أخبار المنصة.
+          </p>
+
+        </div>
+
+
+        <div class="dashboard-card">
+
+          <div class="icon">
+            🔔
+          </div>
+
+          <div class="number">
+            4
+          </div>
+
+          <h3>
+            إشعارات
+          </h3>
+
+          <p class="muted">
+            تذكيرات مهمة.
+          </p>
+
+        </div>
+
       </div>
+
     </section>
+
+
     <!-- ================= ANNOUNCEMENTS ================= -->
-    <section class="section" id="announcements">
-      <div class="section-heading">
+
+    <section
+      class="section"
+      id="announcements">
+
+      <div class="section-title">
+
         <span class="section-label">
-          📢 ANNOUNCEMENTS
+          📢 الإعلانات
         </span>
+
         <h2>
-          What's happening?
+          ماذا يحدث؟
         </h2>
-        <p>
-          Important news, activities and opportunities.
+
+        <p class="muted">
+          آخر الأخبار والإعلانات المهمة.
         </p>
+
       </div>
-      <div class="announcement-grid" id="announcementGrid">
-        <article class="announcement-card">
+
+
+      <div
+        class="announcement-grid"
+        id="announcementGrid">
+
+
+        <article class="announcement">
+
           <div class="announcement-poster">
             🌱
           </div>
-          <div class="announcement-content">
-            <span class="announcement-category">
-              NEW INITIATIVE
+
+          <div class="announcement-body">
+
+            <span class="announcement-date">
+              مبادرة جديدة
             </span>
+
             <h3>
-              Green Berkane
+              بركان الخضراء
             </h3>
-            <p>
-              A new environmental activity is coming soon.
+
+            <p class="muted">
+              مبادرة بيئية جديدة ستقام قريبًا.
             </p>
-            <small>
-              📅 Coming soon
-            </small>
+
           </div>
+
         </article>
-        <article class="announcement-card">
+
+
+        <article class="announcement">
+
           <div class="announcement-poster">
             🏆
           </div>
-          <div class="announcement-content">
-            <span class="announcement-category">
-              COMPETITION
+
+          <div class="announcement-body">
+
+            <span class="announcement-date">
+              مسابقة
             </span>
+
             <h3>
-              Chess Championship
+              بطولة الشطرنج
             </h3>
-            <p>
-              Registration is now open.
+
+            <p class="muted">
+              التسجيل مفتوح الآن.
             </p>
-            <small>
-              📅 Registration open
-            </small>
+
           </div>
+
         </article>
-        <article class="announcement-card">
+
+
+        <article class="announcement">
+
           <div class="announcement-poster">
             📚
           </div>
-          <div class="announcement-content">
-            <span class="announcement-category">
-              STUDENTS
+
+          <div class="announcement-body">
+
+            <span class="announcement-date">
+              للطلاب
             </span>
+
             <h3>
-              Study-Friendly Activities
+              أنشطة مناسبة للطلاب
             </h3>
-            <p>
-              Activities planned around students' schedules.
+
+            <p class="muted">
+              تم تنظيم الأنشطة مع مراعاة أوقات الدراسة والامتحانات.
             </p>
-            <small>
-              📅 For students
-            </small>
+
           </div>
+
         </article>
+
       </div>
+
     </section>
+
+
     <!-- ================= COMPETITIONS ================= -->
+
     <section
-      class="section competitions-section"
-      id="competitions"
-    >
-      <div class="section-heading light-heading">
-        <span class="section-label">
-          🏆 COMPETITIONS
-        </span>
-        <h2>
-          Compete. Participate.<br>
-          Have fun.
-        </h2>
-        <p>
-          Leagues and tournaments organized by Youth Caring Heart.
-        </p>
-      </div>
-      <div class="competition-grid">
-        <!-- FOOTBALL -->
-        <article
-          class="competition-card"
-          data-competition="football"
-          data-deadline="2026-09-01T18:00:00"
-        >
-          <div class="competition-top">
-            <div class="competition-icon">
-              ⚽
-            </div>
-            <span class="competition-badge">
-              REGISTRATION OPEN
-            </span>
-          </div>
-          <h3>
-            YCH Football League
-          </h3>
-          <p>
-            Team-based football competition for young participants.
-          </p>
-          <div class="countdown">
-            <div>
-              <strong class="days">00</strong>
-              <span>Days</span>
-            </div>
-            <div>
-              <strong class="hours">00</strong>
-              <span>Hours</span>
-            </div>
-            <div>
-              <strong class="minutes">00</strong>
-              <span>Min</span>
-            </div>
-            <div>
-              <strong class="seconds">00</strong>
-              <span>Sec</span>
-            </div>
-          </div>
-          <div class="competition-info">
-            <span>
-              👥 Teams
-            </span>
-            <span>
-              ⭐ Points system
-            </span>
-          </div>
-          <button
-            class="btn btn-primary join-btn"
-            data-competition-name="YCH Football League"
-          >
-            Join Competition
-          </button>
-        </article>
-        <!-- CHESS -->
-        <article
-          class="competition-card"
-          data-competition="chess"
-          data-deadline="2026-09-05T18:00:00"
-        >
-          <div class="competition-top">
-            <div class="competition-icon">
-              ♟️
-            </div>
-            <span class="competition-badge">
-              REGISTRATION OPEN
-            </span>
-          </div>
-          <h3>
-            YCH Chess Tournament
-          </h3>
-          <p>
-            Individual chess tournament for young players.
-          </p>
-          <div class="countdown">
-            <div>
-              <strong class="days">00</strong>
-              <span>Days</span>
-            </div>
-            <div>
-              <strong class="hours">00</strong>
-              <span>Hours</span>
-            </div>
-            <div>
-              <strong class="minutes">00</strong>
-              <span>Min</span>
-            </div>
-            <div>
-              <strong class="seconds">00</strong>
-              <span>Sec</span>
-            </div>
-          </div>
-          <div class="competition-info">
-            <span>
-              👤 Individual
-            </span>
-            <span>
-              ⭐ Ranking
-            </span>
-          </div>
-          <button
-            class="btn btn-primary join-btn"
-            data-competition-name="YCH Chess Tournament"
-          >
-            Join Competition
-          </button>
-        </article>
-      </div>
-      <!-- COMPETITION RANKING -->
-      <div class="ranking-box">
-        <div>
+      class="competition-section"
+      id="competitions">
+
+      <div class="competition-inner">
+
+        <div class="section-title">
+
           <span class="section-label">
-            ⭐ POINTS & RANKING
+            🏆 المسابقات
           </span>
-          <h3>
-            Competition leaderboard
-          </h3>
+
+          <h2>
+            شارك، تنافس، واستمتع.
+          </h2>
+
+          <p>
+            مسابقات رياضية وفكرية ينظمها
+            Youth Caring Heart.
+          </p>
+
         </div>
-        <div class="ranking-list">
-          <div class="ranking-row">
-            <span>🥇</span>
-            <strong>Member One</strong>
-            <b>125 pts</b>
-          </div>
-          <div class="ranking-row">
-            <span>🥈</span>
-            <strong>Member Two</strong>
-            <b>110 pts</b>
-          </div>
-          <div class="ranking-row">
-            <span>🥉</span>
-            <strong>Member Three</strong>
-            <b>95 pts</b>
-          </div>
+
+
+        <div class="competition-grid">
+
+
+          <!-- FOOTBALL -->
+
+          <article class="competition">
+
+            <div class="competition-top">
+
+              <div class="competition-icon">
+                ⚽
+              </div>
+
+              <span class="badge">
+                التسجيل مفتوح
+              </span>
+
+            </div>
+
+
+            <h3>
+              دوري Youth Caring Heart لكرة القدم
+            </h3>
+
+            <p class="muted">
+              دوري جماعي للشباب والفرق.
+            </p>
+
+
+            <div
+              class="countdown"
+              data-date="2026-09-01T18:00:00">
+
+              <div class="time-box">
+                <strong class="days">00</strong>
+                <span>يوم</span>
+              </div>
+
+              <div class="time-box">
+                <strong class="hours">00</strong>
+                <span>ساعة</span>
+              </div>
+
+              <div class="time-box">
+                <strong class="minutes">00</strong>
+                <span>دقيقة</span>
+              </div>
+
+              <div class="time-box">
+                <strong class="seconds">00</strong>
+                <span>ثانية</span>
+              </div>
+
+            </div>
+
+
+            <div class="competition-actions">
+
+              <button
+                class="small-button primary"
+                onclick="openApplication(
+                  'دوري Youth Caring Heart لكرة القدم',
+                  'team'
+                )">
+
+                📝 تقديم الطلب
+
+              </button>
+
+            </div>
+
+          </article>
+
+
+          <!-- CHESS -->
+
+          <article class="competition">
+
+            <div class="competition-top">
+
+              <div class="competition-icon">
+                ♟️
+              </div>
+
+              <span class="badge">
+                التسجيل مفتوح
+              </span>
+
+            </div>
+
+
+            <h3>
+              بطولة Youth Caring Heart للشطرنج
+            </h3>
+
+            <p class="muted">
+              بطولة فردية لمحبي الشطرنج.
+            </p>
+
+
+            <div
+              class="countdown"
+              data-date="2026-09-05T18:00:00">
+
+              <div class="time-box">
+                <strong class="days">00</strong>
+                <span>يوم</span>
+              </div>
+
+              <div class="time-box">
+                <strong class="hours">00</strong>
+                <span>ساعة</span>
+              </div>
+
+              <div class="time-box">
+                <strong class="minutes">00</strong>
+                <span>دقيقة</span>
+              </div>
+
+              <div class="time-box">
+                <strong class="seconds">00</strong>
+                <span>ثانية</span>
+              </div>
+
+            </div>
+
+
+            <div class="competition-actions">
+
+              <button
+                class="small-button primary"
+                onclick="openApplication(
+                  'بطولة Youth Caring Heart للشطرنج',
+                  'individual'
+                )">
+
+                📝 تقديم الطلب
+
+              </button>
+
+            </div>
+
+          </article>
+
+
         </div>
+
       </div>
+
     </section>
+
+
     <!-- ================= CALENDAR ================= -->
-    <section class="section" id="activities">
-      <div class="section-heading">
+
+    <section
+      class="section"
+      id="activities">
+
+      <div class="section-title">
+
         <span class="section-label">
-          📅 CALENDAR
+          📅 التقويم
         </span>
+
         <h2>
-          Upcoming activities.
+          الأنشطة القادمة.
         </h2>
-        <p>
-          Important dates in one simple timeline.
+
+        <p class="muted">
+          تابع المواعيد المهمة بسهولة.
         </p>
+
       </div>
+
+
       <div class="calendar">
-        <div class="calendar-event">
-          <div class="event-date">
-            <strong>28</strong>
-            <span>AUG</span>
-          </div>
-          <div>
-            <h3>🌱 Community Clean-Up</h3>
-            <p>Berkane • 10:00</p>
-          </div>
+
+        <div class="calendar-header">
+
+          <strong>
+            📅 المواعيد القادمة
+          </strong>
+
+          <span>
+            2026
+          </span>
+
         </div>
-        <div class="calendar-event">
-          <div class="event-date">
-            <strong>01</strong>
-            <span>SEP</span>
+
+
+        <div class="calendar-list">
+
+
+          <div class="calendar-event">
+
+            <div class="event-date">
+              28
+              <br>
+              أغسطس
+            </div>
+
+            <div>
+
+              <strong>
+                🌱 تنظيف المجتمع
+              </strong>
+
+              <p class="muted">
+                بركان • 10:00
+              </p>
+
+            </div>
+
           </div>
-          <div>
-            <h3>⚽ Football League</h3>
-            <p>Registration deadline</p>
+
+
+          <div class="calendar-event">
+
+            <div class="event-date">
+              01
+              <br>
+              سبتمبر
+            </div>
+
+            <div>
+
+              <strong>
+                ⚽ دوري كرة القدم
+              </strong>
+
+              <p class="muted">
+                آخر موعد للتسجيل
+              </p>
+
+            </div>
+
           </div>
+
+
+          <div class="calendar-event">
+
+            <div class="event-date">
+              05
+              <br>
+              سبتمبر
+            </div>
+
+            <div>
+
+              <strong>
+                ♟️ بطولة الشطرنج
+              </strong>
+
+              <p class="muted">
+                يوم المسابقة
+              </p>
+
+            </div>
+
+          </div>
+
+
         </div>
-        <div class="calendar-event">
-          <div class="event-date">
-            <strong>05</strong>
-            <span>SEP</span>
-          </div>
-          <div>
-            <h3>♟️ Chess Tournament</h3>
-            <p>Competition day</p>
-          </div>
-        </div>
+
       </div>
+
     </section>
-    <!-- ================= COMMUNITY CHAT ================= -->
-    <section class="section chat-section" id="chat">
-      <div class="section-heading">
+
+
+    <!-- ================= CHAT ================= -->
+
+    <section
+      class="section chat-section"
+      id="chat">
+
+      <div class="section-title">
+
         <span class="section-label">
-          💬 COMMUNITY CHAT
+          💬 مجتمع المنصة
         </span>
+
         <h2>
-          Talk with the community.
+          تواصل مع المجتمع.
         </h2>
-        <p>
-          Organized conversations for members.
+
+        <p class="muted">
+          محادثات منظمة للأعضاء.
         </p>
+
       </div>
-      <div class="chat-container">
+
+
+      <div class="chat-layout">
+
+
         <aside class="chat-sidebar">
-          <h3>Channels</h3>
-          <button class="channel active">
-            💬 General
-          </button>
-          <button class="channel">
-            🏆 Competitions
-          </button>
-          <button class="channel">
-            🌱 Environment
-          </button>
-          <button class="channel">
-            💡 Ideas
-          </button>
-        </aside>
-        <div class="chat-main">
-          <div class="chat-header">
-            <strong>
-              💬 General
-            </strong>
-            <span>
-              24 members
-            </span>
+
+          <h3>
+            القنوات
+          </h3>
+
+          <div class="channel active">
+            💬 العام
           </div>
+
+          <div class="channel">
+            🏆 المسابقات
+          </div>
+
+          <div class="channel">
+            🌱 البيئة
+          </div>
+
+          <div class="channel">
+            💡 الأفكار
+          </div>
+
+        </aside>
+
+
+        <div class="chat-main">
+
+          <div class="chat-header">
+
+            💬 العام
+
+            <span>
+              24 عضوًا
+            </span>
+
+          </div>
+
+
           <div
             class="messages"
-            id="chatMessages"
-          >
+            id="chatMessages">
+
             <div class="message">
-              <strong>
+
+              <small>
                 Youth Caring Heart
-              </strong>
-              <p>
-                Welcome to the community! ❤️
-              </p>
+              </small>
+
+              <div>
+                مرحبًا بكم في مجتمعنا! ❤️
+              </div>
+
             </div>
+
+
             <div class="message">
-              <strong>
-                Admin
-              </strong>
-              <p>
-                Don't forget the upcoming activities.
-              </p>
+
+              <small>
+                المسؤول
+              </small>
+
+              <div>
+                لا تنسوا الأنشطة القادمة.
+              </div>
+
             </div>
+
           </div>
+
+
           <div class="chat-input">
+
             <input
               id="chatInput"
               type="text"
-              placeholder="Write a message..."
-            >
-            <button id="sendMessageBtn">
-              Send
+              placeholder="اكتب رسالة..."
+              onkeydown="
+                if(event.key==='Enter')
+                sendChat()
+              ">
+
+            <button
+              onclick="sendChat()">
+              إرسال
             </button>
+
           </div>
+
         </div>
+
       </div>
+
     </section>
-    <!-- ================= MEETING ROOM ================= -->
-    <section class="section">
-      <div class="section-heading">
-        <span class="section-label">
-          📹 MEETING ROOM
-        </span>
-        <h2>
-          Simple online meetings.
-        </h2>
-        <p>
-          Camera, microphone, screen sharing and chat.
-        </p>
-      </div>
-      <div class="meeting-room">
-        <div class="video-area">
-          <div class="camera-placeholder">
-            <div class="camera-icon">
-              📹
-            </div>
-            <h3>
-              Meeting Room
-            </h3>
-            <p>
-              Camera preview
-            </p>
-          </div>
-        </div>
-        <div class="meeting-controls">
-          <button data-meeting-action="camera">
-            📹
-          </button>
-          <button data-meeting-action="microphone">
-            🎤
-          </button>
-          <button data-meeting-action="screen">
-            🖥️
-          </button>
-          <button data-meeting-action="chat">
-            💬
-          </button>
-          <button
-            class="leave-btn"
-            data-meeting-action="leave"
-          >
-            📞
-          </button>
-        </div>
-      </div>
-    </section>
+
+
     <!-- ================= DOCUMENTS ================= -->
-    <section class="section documents-section">
-      <div class="section-heading">
+
+    <section class="section">
+
+      <div class="section-title">
+
         <span class="section-label">
-          📁 DOCUMENTS
+          📁 الملفات
         </span>
+
         <h2>
-          Important files.
+          الملفات المهمة.
         </h2>
+
       </div>
-      <div class="documents-grid">
-        <article class="document-card">
-          <div>📄</div>
-          <h3>Activity Program</h3>
-          <p>Information for participants.</p>
-        </article>
-        <article class="document-card">
-          <div>📋</div>
-          <h3>Member Guide</h3>
-          <p>Basic information for members.</p>
-        </article>
-        <article class="document-card">
-          <div>📜</div>
-          <h3>Competition Rules</h3>
-          <p>Rules and participation information.</p>
-        </article>
+
+
+      <div class="documents">
+
+
+        <div class="document">
+
+          <div class="document-icon">
+            📄
+          </div>
+
+          <h3>
+            برنامج النشاط
+          </h3>
+
+          <p class="muted">
+            معلومات المشاركين.
+          </p>
+
+        </div>
+
+
+        <div class="document">
+
+          <div class="document-icon">
+            📋
+          </div>
+
+          <h3>
+            دليل العضو
+          </h3>
+
+          <p class="muted">
+            المعلومات الأساسية للأعضاء.
+          </p>
+
+        </div>
+
+
+        <div class="document">
+
+          <div class="document-icon">
+            📜
+          </div>
+
+          <h3>
+            قوانين المسابقات
+          </h3>
+
+          <p class="muted">
+            قوانين المشاركة والمسابقات.
+          </p>
+
+        </div>
+
+
       </div>
+
     </section>
+
+
     <!-- ================= NOTIFICATIONS ================= -->
-    <section class="section notifications-section">
-      <div class="section-heading">
+
+    <section class="section">
+
+      <div class="section-title">
+
         <span class="section-label">
-          🔔 NOTIFICATIONS
+          🔔 الإشعارات
         </span>
+
         <h2>
-          Don't miss anything.
+          لا تفوّت أي شيء.
         </h2>
+
       </div>
-      <div
-        class="notifications"
-        id="notifications"
-      >
-        <article class="notification">
-          <span>🏆</span>
-          <div>
-            <strong>Competition reminder</strong>
-            <p>
-              Football registration deadline is approaching.
-            </p>
+
+
+      <div class="notifications">
+
+
+        <div class="notification">
+
+          <div class="notification-icon">
+            🏆
           </div>
-        </article>
-        <article class="notification">
-          <span>📢</span>
+
           <div>
-            <strong>New announcement</strong>
-            <p>
-              A new Youth Caring Heart announcement was published.
+
+            <strong>
+              تذكير بالمسابقة
+            </strong>
+
+            <p class="muted">
+              اقترب موعد انتهاء التسجيل في دوري كرة القدم.
             </p>
+
           </div>
-        </article>
+
+        </div>
+
+
+        <div class="notification">
+
+          <div class="notification-icon">
+            📢
+          </div>
+
+          <div>
+
+            <strong>
+              إعلان جديد
+            </strong>
+
+            <p class="muted">
+              تم نشر إعلان جديد من Youth Caring Heart.
+            </p>
+
+          </div>
+
+        </div>
+
+
       </div>
+
     </section>
-    <!-- ================= MEMBER PROFILE ================= -->
-    <section class="section" id="profile">
-      <div class="section-heading">
+
+
+    <!-- ================= PROFILE ================= -->
+
+    <section
+      class="section"
+      id="profile">
+
+      <div class="section-title">
+
         <span class="section-label">
-          👤 MEMBER PROFILE
+          👤 الملف الشخصي
         </span>
+
         <h2>
-          Your participation.
+          مشاركاتك.
         </h2>
+
       </div>
-      <div class="profile-card">
+
+
+      <div class="profile">
+
         <div class="avatar">
           👤
         </div>
-        <div class="profile-info">
+
+        <div>
+
           <h3>
-            Member Name
+            اسم العضو
           </h3>
-          <p>
-            Youth Caring Heart Member
+
+          <p class="muted">
+            عضو في Youth Caring Heart
           </p>
-          <div class="profile-stats">
-            <span>
-              🏆 2 Competitions
-            </span>
-            <span>
-              🤝 5 Activities
-            </span>
-            <span>
-              ⭐ 125 Points
-            </span>
-          </div>
+
+          <p>
+            🏆 المسابقات: 2
+            &nbsp; • &nbsp;
+            🤝 الأنشطة: 5
+          </p>
+
         </div>
+
       </div>
+
     </section>
-    <!-- ================= ADMIN PANEL ================= -->
-    <section class="section admin-section" id="admin">
-      <div class="section-heading light-heading">
+
+
+    <!-- ================= ADMIN ================= -->
+
+    <section
+      class="section admin-section"
+      id="admin">
+
+      <div class="section-title">
+
         <span class="section-label">
-          🔐 ADMIN PANEL
+          🔐 لوحة المسؤول
         </span>
+
         <h2>
-          Manage the platform.
+          إدارة المنصة.
         </h2>
+
         <p>
-          Create announcements and competitions without editing code.
+          إنشاء الإعلانات والمسابقات بسهولة.
         </p>
+
       </div>
+
+
       <div class="admin-panel">
-        <!-- ANNOUNCEMENT -->
-        <div class="admin-block">
-          <h3>
-            📢 Create Announcement
-          </h3>
-          <div class="form-grid">
-            <div class="form-field">
-              <label for="announcementTitle">
-                Title
-              </label>
-              <input
-                id="announcementTitle"
-                type="text"
-                placeholder="Announcement title"
-              >
-            </div>
-            <div class="form-field">
-              <label for="announcementCategory">
-                Category
-              </label>
-              <select id="announcementCategory">
-                <option>News</option>
-                <option>Competition</option>
-                <option>Activity</option>
-                <option>Important</option>
-              </select>
-            </div>
-            <div class="form-field full">
-              <label for="announcementText">
-                Description
-              </label>
-              <textarea
-                id="announcementText"
-                placeholder="Write your announcement..."
-              ></textarea>
-            </div>
+
+
+        <h3>
+          📢 إنشاء إعلان
+        </h3>
+
+
+        <div class="form-grid">
+
+
+          <div class="field">
+
+            <label>
+              العنوان
+            </label>
+
+            <input
+              id="announcementTitle"
+              type="text"
+              placeholder="عنوان الإعلان">
+
           </div>
+
+
+          <div class="field">
+
+            <label>
+              التصنيف
+            </label>
+
+            <select id="announcementCategory">
+
+              <option>
+                خبر
+              </option>
+
+              <option>
+                مسابقة
+              </option>
+
+              <option>
+                نشاط
+              </option>
+
+              <option>
+                مهم
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="field full">
+
+            <label>
+              المحتوى
+            </label>
+
+            <textarea
+              id="announcementText"
+              placeholder="اكتب الإعلان...">
+            </textarea>
+
+          </div>
+
+
+        </div>
+
+
+        <div class="admin-actions">
+
           <button
-            class="btn btn-primary"
-            id="publishAnnouncementBtn"
-          >
-            📢 Publish Announcement
+            class="button"
+            onclick="publishAnnouncement()">
+
+            📢 نشر الإعلان
+
           </button>
-        </div>
-        <!-- COMPETITION -->
-        <div class="admin-block">
-          <h3>
-            🏆 Create Competition
-          </h3>
-          <div class="form-grid">
-            <div class="form-field">
-              <label for="competitionName">
-                Competition Name
-              </label>
-              <input
-                id="competitionName"
-                type="text"
-                placeholder="Example: YCH Football League"
-              >
-            </div>
-            <div class="form-field">
-              <label for="competitionType">
-                Type
-              </label>
-              <select id="competitionType">
-                <option>⚽ Football</option>
-                <option>♟️ Chess</option>
-                <option>🏆 Other</option>
-              </select>
-            </div>
-            <div class="form-field full">
-              <label for="competitionDeadline">
-                Registration Deadline
-              </label>
-              <input
-                id="competitionDeadline"
-                type="datetime-local"
-              >
-            </div>
-          </div>
+
           <button
-            class="btn btn-primary"
-            id="createCompetitionBtn"
-          >
-            🏆 Create Competition
+            class="theme-btn"
+            onclick="clearAnnouncementForm()">
+
+            مسح
+
           </button>
+
         </div>
-        <!-- AI -->
-        <div class="admin-ai">
-          <div class="ai-icon">
-            🤖
+
+
+        <hr>
+
+
+        <h3>
+          🏆 إنشاء مسابقة
+        </h3>
+
+
+        <div class="form-grid">
+
+
+          <div class="field">
+
+            <label>
+              اسم المسابقة
+            </label>
+
+            <input
+              id="competitionName"
+              type="text"
+              placeholder="مثال: دوري كرة القدم">
+
           </div>
-          <div>
-            <span class="section-label">
-              AI SYSTEM
-            </span>
-            <h3>
-              Smart platform assistant
-            </h3>
-            <p>
-              The AI layer will later help with competition points,
-              rankings, deadline reminders and activity management.
-            </p>
+
+
+          <div class="field">
+
+            <label>
+              النوع
+            </label>
+
+            <select id="competitionType">
+
+              <option>
+                ⚽ كرة القدم
+              </option>
+
+              <option>
+                ♟️ الشطرنج
+              </option>
+
+              <option>
+                🏆 أخرى
+              </option>
+
+            </select>
+
           </div>
+
+
+          <div class="field full">
+
+            <label>
+              آخر موعد للتسجيل
+            </label>
+
+            <input
+              id="competitionDeadline"
+              type="datetime-local">
+
+          </div>
+
+
         </div>
+
+
+        <div class="admin-actions">
+
+          <button
+            class="button"
+            onclick="createCompetition()">
+
+            🏆 إنشاء المسابقة
+
+          </button>
+
+        </div>
+
+
       </div>
+
     </section>
+
   </main>
+
+
+  <!-- ================= APPLICATION MODAL ================= -->
+
+  <div
+    class="application-overlay"
+    id="applicationOverlay">
+
+    <div class="application-modal">
+
+
+      <button
+        class="close-application"
+        onclick="closeApplication()">
+
+        ✕
+
+      </button>
+
+
+      <div class="application-icon">
+        🏆
+      </div>
+
+
+      <h2>
+        طلب المشاركة في المسابقة
+      </h2>
+
+
+      <p
+        class="muted"
+        id="applicationCompetition">
+        اسم المسابقة
+      </p>
+
+
+      <form
+        id="competitionApplicationForm">
+
+
+        <div class="application-field">
+
+          <label for="appName">
+            الاسم الكامل *
+          </label>
+
+          <input
+            id="appName"
+            type="text"
+            maxlength="80"
+            required
+            placeholder="أدخل اسمك الكامل">
+
+        </div>
+
+
+        <div class="application-field">
+
+          <label for="appEmail">
+            البريد الإلكتروني *
+          </label>
+
+          <input
+            id="appEmail"
+            type="email"
+            maxlength="120"
+            required
+            placeholder="example@email.com">
+
+        </div>
+
+
+        <div class="application-field">
+
+          <label for="appSchool">
+            المدرسة / المؤسسة
+          </label>
+
+          <input
+            id="appSchool"
+            type="text"
+            maxlength="120"
+            placeholder="اسم المدرسة أو المؤسسة">
+
+        </div>
+
+
+        <div
+          class="application-field"
+          id="teamField">
+
+          <label for="appTeam">
+            اسم الفريق
+          </label>
+
+          <input
+            id="appTeam"
+            type="text"
+            maxlength="80"
+            placeholder="أدخل اسم الفريق">
+
+        </div>
+
+
+        <label class="application-check">
+
+          <input
+            id="appRules"
+            type="checkbox"
+            required>
+
+          <span>
+            أوافق على الالتزام بقواعد المسابقة.
+          </span>
+
+        </label>
+
+
+        <button
+          type="submit"
+          class="button application-submit">
+
+          🏆 إرسال طلب المشاركة
+
+        </button>
+
+
+      </form>
+
+
+      <!-- SUCCESS -->
+
+      <div
+        class="application-success"
+        id="applicationSuccess">
+
+        <div>
+          ✅
+        </div>
+
+        <h3>
+          تم استلام طلبك!
+        </h3>
+
+        <p>
+          تم تسجيل طلب المشاركة بنجاح.
+          يمكنك متابعة حالة طلبك من ملفك الشخصي.
+        </p>
+
+        <button
+          class="small-button primary"
+          onclick="closeApplication()">
+
+          حسناً
+
+        </button>
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+
   <!-- ================= FOOTER ================= -->
-  <footer class="footer">
+
+  <footer>
+
     <div class="footer-logo">
       ❤️ Youth Caring Heart
     </div>
+
     <p>
-      Youth • Community • Environment • Action
+      الشباب • المجتمع • البيئة • العمل
     </p>
+
     <small>
       © 2026 Youth Caring Heart — Berkane, Morocco
     </small>
+
   </footer>
-  <!-- ================= JS ================= -->
+
+
+  <!-- JAVASCRIPT -->
+
   <script src="script.js"></script>
+
 </body>
+
 </html>
