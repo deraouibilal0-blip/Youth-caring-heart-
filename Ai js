@@ -1,0 +1,174 @@
+/* ================= YCH AI ASSISTANT ================= */
+
+function openAI() {
+
+  const panel =
+    document.getElementById("aiPanel");
+
+  if (panel) {
+
+    panel.classList.add("active");
+
+  }
+
+}
+
+
+function closeAI() {
+
+  const panel =
+    document.getElementById("aiPanel");
+
+  if (panel) {
+
+    panel.classList.remove("active");
+
+  }
+
+}
+
+
+function addAIMessage(text, type) {
+
+  const messages =
+    document.getElementById("aiMessages");
+
+  if (!messages) return;
+
+  const message =
+    document.createElement("div");
+
+  message.className =
+    "ai-message " + type;
+
+  message.textContent =
+    text;
+
+  messages.appendChild(message);
+
+  messages.scrollTop =
+    messages.scrollHeight;
+
+}
+
+
+async function sendAI() {
+
+  const input =
+    document.getElementById("aiInput");
+
+  if (!input) return;
+
+  const question =
+    input.value.trim();
+
+  if (!question) return;
+
+
+  addAIMessage(
+    question,
+    "user"
+  );
+
+  input.value = "";
+
+
+  addAIMessage(
+    "🤔 I'm thinking...",
+    "bot"
+  );
+
+
+  /*
+    IMPORTANT:
+
+    Do NOT put your AI API key here.
+
+    Later this request will go to
+    your secure backend.
+  */
+
+
+  try {
+
+    const response =
+      await fetch("/api/ai", {
+
+        method: "POST",
+
+        headers: {
+
+          "Content-Type":
+            "application/json"
+
+        },
+
+        body: JSON.stringify({
+
+          message: question
+
+        })
+
+      });
+
+
+    if (!response.ok) {
+
+      throw new Error(
+        "AI server unavailable"
+      );
+
+    }
+
+
+    const data =
+      await response.json();
+
+
+    const messages =
+      document.getElementById(
+        "aiMessages"
+      );
+
+    const thinking =
+      messages.lastElementChild;
+
+    if (thinking) {
+
+      thinking.remove();
+
+    }
+
+
+    addAIMessage(
+      data.reply ||
+      "Sorry, I couldn't answer that.",
+      "bot"
+    );
+
+
+  } catch (error) {
+
+    const messages =
+      document.getElementById(
+        "aiMessages"
+      );
+
+    const thinking =
+      messages.lastElementChild;
+
+    if (thinking) {
+
+      thinking.remove();
+
+    }
+
+
+    addAIMessage(
+      "⚠️ The AI connection isn't ready yet. We'll connect the secure backend next.",
+      "bot"
+    );
+
+  }
+
+}
