@@ -1,0 +1,914 @@
+/* =====================================================
+   YOUTH CARING HEART
+   FINAL JAVASCRIPT
+===================================================== */
+
+
+/* ================= MOBILE MENU ================= */
+
+function toggleMenu() {
+
+  const nav = document.getElementById("nav");
+
+  if (!nav) return;
+
+  nav.classList.toggle("mobile-open");
+
+}
+
+
+/* Close mobile menu after clicking a link */
+
+document.querySelectorAll(".nav a").forEach(link => {
+
+  link.addEventListener("click", () => {
+
+    const nav = document.getElementById("nav");
+
+    if (nav) {
+      nav.classList.remove("mobile-open");
+    }
+
+  });
+
+});
+
+
+/* ================= DARK MODE ================= */
+
+function toggleDark() {
+
+  document.body.classList.toggle("dark");
+
+  const isDark =
+    document.body.classList.contains("dark");
+
+  localStorage.setItem(
+    "ych-dark",
+    isDark ? "true" : "false"
+  );
+
+}
+
+
+/* Remember user's theme */
+
+if (
+  localStorage.getItem("ych-dark") === "true"
+) {
+
+  document.body.classList.add("dark");
+
+}
+
+
+/* ================= LANGUAGE ================= */
+
+function setLanguage(lang) {
+
+  document.documentElement.dir =
+    lang === "ar" ? "rtl" : "ltr";
+
+  localStorage.setItem(
+    "ych-language",
+    lang
+  );
+
+}
+
+
+/* Remember language */
+
+const savedLanguage =
+  localStorage.getItem("ych-language");
+
+if (savedLanguage) {
+
+  document.documentElement.dir =
+    savedLanguage === "ar"
+      ? "rtl"
+      : "ltr";
+
+}
+
+
+/* ================= COUNTDOWN ================= */
+
+function updateCountdowns() {
+
+  const countdowns =
+    document.querySelectorAll(".countdown");
+
+  countdowns.forEach(counter => {
+
+    const date =
+      counter.dataset.date;
+
+    if (!date) return;
+
+    const target =
+      new Date(date).getTime();
+
+    const now =
+      Date.now();
+
+    let distance =
+      target - now;
+
+    if (distance < 0) {
+
+      distance = 0;
+
+    }
+
+    const days =
+      Math.floor(
+        distance /
+        (1000 * 60 * 60 * 24)
+      );
+
+    const hours =
+      Math.floor(
+        (distance %
+          (1000 * 60 * 60 * 24)) /
+        (1000 * 60 * 60)
+      );
+
+    const minutes =
+      Math.floor(
+        (distance %
+          (1000 * 60 * 60)) /
+        (1000 * 60)
+      );
+
+    const seconds =
+      Math.floor(
+        (distance %
+          (1000 * 60)) /
+        1000
+      );
+
+
+    const daysElement =
+      counter.querySelector(".days");
+
+    const hoursElement =
+      counter.querySelector(".hours");
+
+    const minutesElement =
+      counter.querySelector(".minutes");
+
+    const secondsElement =
+      counter.querySelector(".seconds");
+
+
+    if (daysElement)
+      daysElement.textContent =
+        String(days).padStart(2,"0");
+
+    if (hoursElement)
+      hoursElement.textContent =
+        String(hours).padStart(2,"0");
+
+    if (minutesElement)
+      minutesElement.textContent =
+        String(minutes).padStart(2,"0");
+
+    if (secondsElement)
+      secondsElement.textContent =
+        String(seconds).padStart(2,"0");
+
+  });
+
+}
+
+
+/* Start countdown */
+
+updateCountdowns();
+
+setInterval(
+  updateCountdowns,
+  1000
+);
+
+
+/* ================= COMPETITION APPLICATION ================= */
+
+function joinCompetition(name) {
+
+  const overlay =
+    document.getElementById(
+      "applicationOverlay"
+    );
+
+  const title =
+    document.getElementById(
+      "applicationCompetition"
+    );
+
+  if (!overlay) {
+
+    alert(
+      "Application system is not available yet."
+    );
+
+    return;
+
+  }
+
+
+  if (title) {
+
+    title.textContent =
+      name + " Competition";
+
+  }
+
+
+  overlay.classList.add("active");
+
+  document.body.style.overflow =
+    "hidden";
+
+
+  const form =
+    document.getElementById(
+      "applicationForm"
+    );
+
+  const success =
+    document.getElementById(
+      "applicationSuccess"
+    );
+
+
+  if (form) {
+
+    form.style.display =
+      "block";
+
+  }
+
+
+  if (success) {
+
+    success.style.display =
+      "none";
+
+  }
+
+}
+
+
+/* ================= CLOSE APPLICATION ================= */
+
+function closeApplication() {
+
+  const overlay =
+    document.getElementById(
+      "applicationOverlay"
+    );
+
+  if (!overlay) return;
+
+  overlay.classList.remove("active");
+
+  document.body.style.overflow =
+    "";
+
+}
+
+
+/* Close when clicking outside modal */
+
+document.addEventListener(
+  "click",
+  event => {
+
+    const overlay =
+      document.getElementById(
+        "applicationOverlay"
+      );
+
+    const modal =
+      document.querySelector(
+        ".application-modal"
+      );
+
+    if (
+      overlay &&
+      overlay.classList.contains("active") &&
+      event.target === overlay
+    ) {
+
+      closeApplication();
+
+    }
+
+  }
+);
+
+
+/* Close with Escape */
+
+document.addEventListener(
+  "keydown",
+  event => {
+
+    if (event.key === "Escape") {
+
+      closeApplication();
+
+    }
+
+  }
+);
+
+
+/* ================= APPLICATION FORM ================= */
+
+function submitApplication(event) {
+
+  if (event) {
+
+    event.preventDefault();
+
+  }
+
+
+  const name =
+    document.getElementById(
+      "appName"
+    )?.value.trim();
+
+  const email =
+    document.getElementById(
+      "appEmail"
+    )?.value.trim();
+
+  const phone =
+    document.getElementById(
+      "appPhone"
+    )?.value.trim();
+
+  const success =
+    document.getElementById(
+      "applicationSuccess"
+    );
+
+  const form =
+    document.getElementById(
+      "applicationForm"
+    );
+
+
+  if (!name || !email) {
+
+    alert(
+      "Please enter your name and email."
+    );
+
+    return false;
+
+  }
+
+
+  /* Basic email validation */
+
+  const emailPattern =
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+  if (!emailPattern.test(email)) {
+
+    alert(
+      "Please enter a valid email address."
+    );
+
+    return false;
+
+  }
+
+
+  /*
+    FRONT-END DEMO ONLY.
+
+    The application is not permanently
+    stored online until a real backend
+    and database are connected.
+  */
+
+
+  const application = {
+
+    name:
+      name,
+
+    email:
+      email,
+
+    phone:
+      phone,
+
+    competition:
+      document.getElementById(
+        "applicationCompetition"
+      )?.textContent || "",
+
+    date:
+      new Date().toISOString()
+
+  };
+
+
+  /* Save locally on this device */
+
+  const applications =
+    JSON.parse(
+      localStorage.getItem(
+        "ych-applications"
+      ) || "[]"
+    );
+
+
+  applications.push(
+    application
+  );
+
+
+  localStorage.setItem(
+    "ych-applications",
+    JSON.stringify(
+      applications
+    )
+  );
+
+
+  if (form) {
+
+    form.style.display =
+      "none";
+
+  }
+
+
+  if (success) {
+
+    success.style.display =
+      "block";
+
+  }
+
+
+  return false;
+
+}
+
+
+/* ================= CHAT ================= */
+
+function sendChat() {
+
+  const input =
+    document.getElementById(
+      "chatInput"
+    );
+
+  const messages =
+    document.getElementById(
+      "chatMessages"
+    );
+
+
+  if (!input || !messages)
+    return;
+
+
+  const text =
+    input.value.trim();
+
+
+  if (!text)
+    return;
+
+
+  const message =
+    document.createElement(
+      "div"
+    );
+
+
+  message.className =
+    "message mine";
+
+
+  const name =
+    document.createElement(
+      "small"
+    );
+
+  name.textContent =
+    "You";
+
+
+  const content =
+    document.createElement(
+      "div"
+    );
+
+  content.textContent =
+    text;
+
+
+  message.appendChild(name);
+
+  message.appendChild(content);
+
+  messages.appendChild(message);
+
+
+  input.value =
+    "";
+
+
+  messages.scrollTop =
+    messages.scrollHeight;
+
+}
+
+
+/* ================= CHAT ENTER KEY ================= */
+
+const chatInput =
+  document.getElementById(
+    "chatInput"
+  );
+
+
+if (chatInput) {
+
+  chatInput.addEventListener(
+    "keydown",
+    event => {
+
+      if (event.key === "Enter") {
+
+        event.preventDefault();
+
+        sendChat();
+
+      }
+
+    }
+  );
+
+}
+
+
+/* ================= CHAT CHANNELS ================= */
+
+document.querySelectorAll(
+  ".channel"
+).forEach(channel => {
+
+  channel.addEventListener(
+    "click",
+    () => {
+
+      document
+        .querySelectorAll(".channel")
+        .forEach(item => {
+
+          item.classList.remove(
+            "active"
+          );
+
+        });
+
+
+      channel.classList.add(
+        "active"
+      );
+
+
+      const header =
+        document.querySelector(
+          ".chat-header"
+        );
+
+
+      if (header) {
+
+        const channelName =
+          channel.textContent.trim();
+
+        header.firstChild.textContent =
+          channelName + " ";
+
+      }
+
+    }
+  );
+
+});
+
+
+/* ================= MEETING ================= */
+
+function meetingAction(action) {
+
+  if (
+    action === "Leave"
+  ) {
+
+    alert(
+      "You left the meeting."
+    );
+
+    return;
+
+  }
+
+
+  alert(
+    action +
+    " control selected."
+  );
+
+}
+
+
+/* ================= ADMIN ANNOUNCEMENT ================= */
+
+function publishAnnouncement() {
+
+  const title =
+    document.getElementById(
+      "announcementTitle"
+    )?.value.trim();
+
+  const text =
+    document.getElementById(
+      "announcementText"
+    )?.value.trim();
+
+  const category =
+    document.getElementById(
+      "announcementCategory"
+    )?.value;
+
+
+  if (!title || !text) {
+
+    alert(
+      "Please complete the announcement."
+    );
+
+    return;
+
+  }
+
+
+  const grid =
+    document.getElementById(
+      "announcementGrid"
+    );
+
+
+  if (!grid) return;
+
+
+  const card =
+    document.createElement(
+      "article"
+    );
+
+
+  card.className =
+    "announcement";
+
+
+  const poster =
+    document.createElement(
+      "div"
+    );
+
+  poster.className =
+    "announcement-poster";
+
+  poster.textContent =
+    category === "Competition"
+      ? "🏆"
+      : category === "Activity"
+        ? "🌱"
+        : "📢";
+
+
+  const body =
+    document.createElement(
+      "div"
+    );
+
+  body.className =
+    "announcement-body";
+
+
+  const date =
+    document.createElement(
+      "div"
+    );
+
+  date.className =
+    "announcement-date";
+
+  date.textContent =
+    category.toUpperCase();
+
+
+  const heading =
+    document.createElement(
+      "h3"
+    );
+
+  heading.textContent =
+    title;
+
+
+  const description =
+    document.createElement(
+      "p"
+    );
+
+  description.textContent =
+    text;
+
+
+  body.appendChild(date);
+
+  body.appendChild(heading);
+
+  body.appendChild(description);
+
+
+  card.appendChild(poster);
+
+  card.appendChild(body);
+
+
+  grid.prepend(card);
+
+
+  clearAnnouncementForm();
+
+
+  alert(
+    "📢 Announcement published!"
+  );
+
+}
+
+
+/* ================= CLEAR ANNOUNCEMENT ================= */
+
+function clearAnnouncementForm() {
+
+  const title =
+    document.getElementById(
+      "announcementTitle"
+    );
+
+  const text =
+    document.getElementById(
+      "announcementText"
+    );
+
+
+  if (title)
+    title.value = "";
+
+
+  if (text)
+    text.value = "";
+
+}
+
+
+/* ================= ADMIN COMPETITION ================= */
+
+function createCompetition() {
+
+  const name =
+    document.getElementById(
+      "competitionName"
+    )?.value.trim();
+
+  const deadline =
+    document.getElementById(
+      "competitionDeadline"
+    )?.value;
+
+  const type =
+    document.getElementById(
+      "competitionType"
+    )?.value;
+
+
+  if (!name || !deadline) {
+
+    alert(
+      "Please complete the competition information."
+    );
+
+    return;
+
+  }
+
+
+  alert(
+    "🏆 Competition created!\n\n" +
+    name +
+    "\n" +
+    type +
+    "\nDeadline: " +
+    deadline
+  );
+
+
+  const nameInput =
+    document.getElementById(
+      "competitionName"
+    );
+
+  const deadlineInput =
+    document.getElementById(
+      "competitionDeadline"
+    );
+
+
+  if (nameInput)
+    nameInput.value = "";
+
+
+  if (deadlineInput)
+    deadlineInput.value = "";
+
+}
+
+
+/* ================= DEADLINE CHECK ================= */
+
+function checkDeadlines() {
+
+  document
+    .querySelectorAll(
+      ".countdown"
+    )
+    .forEach(counter => {
+
+      const target =
+        new Date(
+          counter.dataset.date
+        ).getTime();
+
+      const remaining =
+        target - Date.now();
+
+
+      if (
+        remaining > 0 &&
+        remaining <
+          1000 * 60 * 60 * 24 * 3
+      ) {
+
+        console.log(
+          "🔔 Competition deadline is approaching!"
+        );
+
+      }
+
+    });
+
+}
+
+
+setInterval(
+  checkDeadlines,
+  60000
+);
+
+
+/* ================= INITIALIZATION ================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
+
+    updateCountdowns();
+
+    console.log(
+      "❤️ Youth Caring Heart loaded successfully."
+    );
+
+  }
+);
