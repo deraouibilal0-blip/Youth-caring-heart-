@@ -1,158 +1,237 @@
-/* =====================================================
-   YOUTH CARING HEART — script.js
-===================================================== */
+/* ==================================================
+   YOUTH CARING HEART
+   FINAL JAVASCRIPT
+================================================== */
 
-/* ================= MOBILE MENU ================= */
 
-function toggleMenu(){
+/* ==================================================
+   MOBILE MENU
+================================================== */
+
+function toggleMenu() {
+
   const nav = document.getElementById("nav");
 
-  if(nav){
-    nav.classList.toggle("mobile-open");
-  }
+  if (!nav) return;
+
+  nav.classList.toggle("mobile-open");
 }
 
 
-/* ================= DARK MODE ================= */
+/* Close mobile menu after clicking a link */
 
-function toggleDark(){
+document.querySelectorAll(".nav a").forEach(link => {
+
+  link.addEventListener("click", () => {
+
+    const nav = document.getElementById("nav");
+
+    if (nav) {
+      nav.classList.remove("mobile-open");
+    }
+
+  });
+
+});
+
+
+/* ==================================================
+   DARK MODE
+================================================== */
+
+function toggleDark() {
 
   document.body.classList.toggle("dark");
 
   const isDark =
     document.body.classList.contains("dark");
 
-  localStorage.setItem("ych-dark", isDark);
+  localStorage.setItem(
+    "ych-dark-mode",
+    isDark ? "true" : "false"
+  );
 
 }
 
 
 /* Load saved theme */
 
-if(localStorage.getItem("ych-dark") === "true"){
+if (
+  localStorage.getItem("ych-dark-mode") === "true"
+) {
+
   document.body.classList.add("dark");
+
 }
 
 
-/* ================= LANGUAGE ================= */
+/* ==================================================
+   LANGUAGE
+================================================== */
 
-function setLanguage(lang){
+function setLanguage(language) {
 
-  if(lang === "ar"){
+  if (language === "ar") {
 
-    document.documentElement.lang = "ar";
     document.documentElement.dir = "rtl";
 
-    alert("🇲🇦 تم اختيار اللغة العربية.");
+    alert(
+      "🇲🇦 العربية ستكون متاحة بشكل كامل في النسخة القادمة."
+    );
 
+    return;
   }
 
-  else if(lang === "fr"){
 
-    document.documentElement.lang = "fr";
+  if (language === "fr") {
+
     document.documentElement.dir = "ltr";
 
-    alert("🇫🇷 Français sélectionné.");
+    alert(
+      "🇫🇷 La version française complète sera ajoutée prochainement."
+    );
 
+    return;
   }
 
-  else{
 
-    document.documentElement.lang = "en";
-    document.documentElement.dir = "ltr";
-
-    alert("🇬🇧 English selected.");
-
-  }
+  document.documentElement.dir = "ltr";
 
 }
 
 
-/* =====================================================
-   COMPETITION COUNTDOWN
-===================================================== */
+/* ==================================================
+   COUNTDOWN SYSTEM
+================================================== */
 
-function updateCountdowns(){
+function updateCountdowns() {
 
-  document
-    .querySelectorAll(".countdown")
-    .forEach(counter => {
+  const countdowns =
+    document.querySelectorAll(".countdown");
 
-      const date = counter.dataset.date;
 
-      if(!date) return;
+  countdowns.forEach(counter => {
 
-      const target =
-        new Date(date).getTime();
+    const date = counter.dataset.date;
 
-      const now =
-        Date.now();
+    if (!date) return;
 
-      let distance =
-        target - now;
 
-      if(distance < 0){
-        distance = 0;
+    const target =
+      new Date(date).getTime();
+
+    const now =
+      Date.now();
+
+    let distance =
+      target - now;
+
+
+    /* Competition finished */
+
+    if (distance <= 0) {
+
+      distance = 0;
+
+      const competition =
+        counter.closest(".competition");
+
+      if (competition) {
+
+        const badge =
+          competition.querySelector(".badge");
+
+        if (badge) {
+
+          badge.textContent =
+            "REGISTRATION CLOSED";
+
+          badge.style.background =
+            "#f4d6d5";
+
+        }
+
       }
 
-      const days =
-        Math.floor(
-          distance /
-          (1000 * 60 * 60 * 24)
-        );
-
-      const hours =
-        Math.floor(
-          (distance %
-            (1000 * 60 * 60 * 24)) /
-          (1000 * 60 * 60)
-        );
-
-      const minutes =
-        Math.floor(
-          (distance %
-            (1000 * 60 * 60)) /
-          (1000 * 60)
-        );
-
-      const seconds =
-        Math.floor(
-          (distance %
-            (1000 * 60)) /
-          1000
-        );
+    }
 
 
-      const daysElement =
-        counter.querySelector(".days");
-
-      const hoursElement =
-        counter.querySelector(".hours");
-
-      const minutesElement =
-        counter.querySelector(".minutes");
-
-      const secondsElement =
-        counter.querySelector(".seconds");
+    const days =
+      Math.floor(
+        distance /
+        (1000 * 60 * 60 * 24)
+      );
 
 
-      if(daysElement)
-        daysElement.textContent =
-          String(days).padStart(2,"0");
+    const hours =
+      Math.floor(
+        (distance %
+          (1000 * 60 * 60 * 24)) /
+        (1000 * 60 * 60)
+      );
 
-      if(hoursElement)
-        hoursElement.textContent =
-          String(hours).padStart(2,"0");
 
-      if(minutesElement)
-        minutesElement.textContent =
-          String(minutes).padStart(2,"0");
+    const minutes =
+      Math.floor(
+        (distance %
+          (1000 * 60 * 60)) /
+        (1000 * 60)
+      );
 
-      if(secondsElement)
-        secondsElement.textContent =
-          String(seconds).padStart(2,"0");
 
-    });
+    const seconds =
+      Math.floor(
+        (distance %
+          (1000 * 60)) /
+        1000
+      );
+
+
+    const daysElement =
+      counter.querySelector(".days");
+
+    const hoursElement =
+      counter.querySelector(".hours");
+
+    const minutesElement =
+      counter.querySelector(".minutes");
+
+    const secondsElement =
+      counter.querySelector(".seconds");
+
+
+    if (daysElement) {
+
+      daysElement.textContent =
+        String(days).padStart(2, "0");
+
+    }
+
+
+    if (hoursElement) {
+
+      hoursElement.textContent =
+        String(hours).padStart(2, "0");
+
+    }
+
+
+    if (minutesElement) {
+
+      minutesElement.textContent =
+        String(minutes).padStart(2, "0");
+
+    }
+
+
+    if (secondsElement) {
+
+      secondsElement.textContent =
+        String(seconds).padStart(2, "0");
+
+    }
+
+  });
 
 }
 
@@ -167,20 +246,13 @@ setInterval(
 );
 
 
-/* =====================================================
+/* ==================================================
    COMPETITION APPLICATION
-===================================================== */
+================================================== */
 
-let selectedCompetition = "";
+function joinCompetition(name) {
 
-
-/* Open application */
-
-function joinCompetition(name){
-
-  selectedCompetition = name;
-
-  const modal =
+  const overlay =
     document.getElementById(
       "applicationOverlay"
     );
@@ -190,73 +262,137 @@ function joinCompetition(name){
       "applicationCompetition"
     );
 
-  if(title){
-    title.textContent =
-      "🏆 " + name;
+
+  if (!overlay || !title) return;
+
+
+  title.textContent =
+    "🏆 " + name + " Competition";
+
+
+  overlay.classList.add("active");
+
+
+  document.body.style.overflow =
+    "hidden";
+
+
+  const success =
+    document.getElementById(
+      "applicationSuccess"
+    );
+
+
+  const form =
+    document.getElementById(
+      "applicationForm"
+    );
+
+
+  if (success) {
+
+    success.style.display =
+      "none";
+
   }
 
-  if(modal){
-    modal.classList.add("active");
 
-    document.body.style.overflow =
-      "hidden";
+  if (form) {
+
+    form.style.display =
+      "block";
+
   }
 
 }
 
 
-/* Close application */
+function closeApplication() {
 
-function closeApplication(){
-
-  const modal =
+  const overlay =
     document.getElementById(
       "applicationOverlay"
     );
 
-  if(modal){
 
-    modal.classList.remove("active");
+  if (!overlay) return;
 
-    document.body.style.overflow =
-      "";
+
+  overlay.classList.remove("active");
+
+
+  document.body.style.overflow =
+    "";
+
+
+  const form =
+    document.getElementById(
+      "applicationForm"
+    );
+
+
+  const success =
+    document.getElementById(
+      "applicationSuccess"
+    );
+
+
+  if (form) {
+
+    form.reset();
+
+    form.style.display =
+      "block";
+
+  }
+
+
+  if (success) {
+
+    success.style.display =
+      "none";
 
   }
 
 }
 
 
-/* Close by clicking outside */
+/* Close modal by clicking outside */
 
-document.addEventListener(
-  "click",
-  function(event){
+const applicationOverlay =
+  document.getElementById(
+    "applicationOverlay"
+  );
 
-    const overlay =
-      document.getElementById(
-        "applicationOverlay"
-      );
 
-    if(
-      overlay &&
-      event.target === overlay
-    ){
+if (applicationOverlay) {
 
-      closeApplication();
+  applicationOverlay.addEventListener(
+    "click",
+    function(event) {
+
+      if (
+        event.target ===
+        applicationOverlay
+      ) {
+
+        closeApplication();
+
+      }
 
     }
+  );
 
-  }
-);
+}
 
 
-/* Escape key */
+/* Close modal with Escape */
 
 document.addEventListener(
   "keydown",
-  function(event){
+  function(event) {
 
-    if(event.key === "Escape"){
+    if (event.key === "Escape") {
 
       closeApplication();
 
@@ -266,86 +402,13 @@ document.addEventListener(
 );
 
 
-/* =====================================================
-   SUBMIT COMPETITION APPLICATION
-===================================================== */
+/* ==================================================
+   SUBMIT APPLICATION
+================================================== */
 
-function submitApplication(event){
+function submitApplication(event) {
 
-  if(event){
-    event.preventDefault();
-  }
-
-
-  const name =
-    document.getElementById(
-      "appName"
-    )?.value.trim();
-
-  const email =
-    document.getElementById(
-      "appEmail"
-    )?.value.trim();
-
-  const phone =
-    document.getElementById(
-      "appPhone"
-    )?.value.trim();
-
-
-  if(!name || !email || !phone){
-
-    alert(
-      "⚠️ Please complete all required fields."
-    );
-
-    return;
-
-  }
-
-
-  const application = {
-
-    competition:
-      selectedCompetition,
-
-    name:
-      name,
-
-    email:
-      email,
-
-    phone:
-      phone,
-
-    date:
-      new Date().toISOString()
-
-  };
-
-
-  /*
-    Prototype storage only.
-
-    Later this can be replaced
-    with a real secure database.
-  */
-
-  const applications =
-    JSON.parse(
-      localStorage.getItem(
-        "ych-applications"
-      ) || "[]"
-    );
-
-
-  applications.push(application);
-
-
-  localStorage.setItem(
-    "ych-applications",
-    JSON.stringify(applications)
-  );
+  event.preventDefault();
 
 
   const form =
@@ -359,31 +422,108 @@ function submitApplication(event){
     );
 
 
-  if(form){
-
-    form.style.display =
-      "none";
-
-  }
+  if (!form || !success) return;
 
 
-  if(success){
+  const name =
+    document.getElementById(
+      "appName"
+    ).value.trim();
 
-    success.classList.add(
-      "active"
+  const email =
+    document.getElementById(
+      "appEmail"
+    ).value.trim();
+
+  const phone =
+    document.getElementById(
+      "appPhone"
+    ).value.trim();
+
+
+  if (
+    !name ||
+    !email ||
+    !phone
+  ) {
+
+    alert(
+      "Please complete all required fields."
     );
 
+    return;
+
   }
 
+
+  /*
+    DEMO STORAGE
+
+    This saves the application
+    only in this browser.
+
+    A real database will be connected
+    later for the production website.
+  */
+
+  const applications =
+    JSON.parse(
+      localStorage.getItem(
+        "ych-applications"
+      ) || "[]"
+    );
+
+
+  const competition =
+    document
+      .getElementById(
+        "applicationCompetition"
+      )
+      .textContent;
+
+
+  applications.push({
+
+    name: name,
+
+    email: email,
+
+    phone: phone,
+
+    competition: competition,
+
+    date:
+      new Date().toISOString()
+
+  });
+
+
+  localStorage.setItem(
+    "ych-applications",
+    JSON.stringify(applications)
+  );
+
+
+  form.style.display =
+    "none";
+
+
+  success.style.display =
+    "block";
+
+
+  showNotification(
+    "🎉 Application submitted successfully!"
+  );
 
 }
 
 
-/* =====================================================
+/* ==================================================
    CHAT
-===================================================== */
+================================================== */
 
-function sendChat(){
+function sendChat() {
 
   const input =
     document.getElementById(
@@ -396,22 +536,19 @@ function sendChat(){
     );
 
 
-  if(!input || !messages){
-    return;
-  }
+  if (!input || !messages) return;
 
 
   const text =
     input.value.trim();
 
 
-  if(!text){
-    return;
-  }
+  if (!text) return;
 
 
   const message =
     document.createElement("div");
+
 
   message.className =
     "message mine";
@@ -420,6 +557,7 @@ function sendChat(){
   const small =
     document.createElement("small");
 
+
   small.textContent =
     "You";
 
@@ -427,22 +565,17 @@ function sendChat(){
   const content =
     document.createElement("div");
 
+
   content.textContent =
     text;
 
 
-  message.appendChild(
-    small
-  );
+  message.appendChild(small);
 
-  message.appendChild(
-    content
-  );
+  message.appendChild(content);
 
 
-  messages.appendChild(
-    message
-  );
+  messages.appendChild(message);
 
 
   input.value = "";
@@ -452,99 +585,138 @@ function sendChat(){
     messages.scrollHeight;
 
 
-  saveChatMessage(text);
+  /*
+    Demo automatic response
+  */
+
+  setTimeout(() => {
+
+    const reply =
+      document.createElement("div");
+
+
+    reply.className =
+      "message";
+
+
+    const replyName =
+      document.createElement("small");
+
+
+    replyName.textContent =
+      "Youth Caring Heart";
+
+
+    const replyText =
+      document.createElement("div");
+
+
+    replyText.textContent =
+      "Thanks for your message! ❤️";
+
+
+    reply.appendChild(replyName);
+
+    reply.appendChild(replyText);
+
+
+    messages.appendChild(reply);
+
+
+    messages.scrollTop =
+      messages.scrollHeight;
+
+  }, 700);
 
 }
 
 
-/* Save chat locally */
+/* ==================================================
+   CHANNELS
+================================================== */
 
-function saveChatMessage(text){
+document
+  .querySelectorAll(".channel")
+  .forEach(channel => {
 
-  const messages =
-    JSON.parse(
-      localStorage.getItem(
-        "ych-chat"
-      ) || "[]"
+    channel.addEventListener(
+      "click",
+      function() {
+
+        document
+          .querySelectorAll(".channel")
+          .forEach(item => {
+
+            item.classList.remove(
+              "active"
+            );
+
+          });
+
+
+        this.classList.add(
+          "active"
+        );
+
+
+        const chatHeader =
+          document.querySelector(
+            ".chat-header"
+          );
+
+
+        if (chatHeader) {
+
+          const channelName =
+            this.textContent.trim();
+
+
+          chatHeader.innerHTML =
+            channelName +
+            '<span>24 members</span>';
+
+        }
+
+      }
     );
-
-
-  messages.push({
-
-    text:text,
-
-    date:
-      new Date().toISOString()
 
   });
 
 
-  localStorage.setItem(
-    "ych-chat",
-    JSON.stringify(messages)
-  );
+/* ==================================================
+   ANNOUNCEMENT SYSTEM
+================================================== */
 
-}
-
-
-/* =====================================================
-   MEETING
-===================================================== */
-
-function meetingAction(action){
-
-  if(action === "Leave"){
-
-    alert(
-      "📞 You left the meeting."
-    );
-
-    return;
-
-  }
-
-
-  alert(
-    action +
-    " selected.\n\n" +
-    "This feature will be connected to the real meeting system later."
-  );
-
-}
-
-
-/* =====================================================
-   ADMIN — ANNOUNCEMENT
-===================================================== */
-
-function publishAnnouncement(){
+function publishAnnouncement() {
 
   const title =
     document
       .getElementById(
         "announcementTitle"
       )
-      ?.value.trim();
+      .value.trim();
+
 
   const text =
     document
       .getElementById(
         "announcementText"
       )
-      ?.value.trim();
+      .value.trim();
+
 
   const category =
     document
       .getElementById(
         "announcementCategory"
       )
-      ?.value;
+      .value;
 
 
-  if(!title || !text){
+  if (!title || !text) {
 
     alert(
-      "⚠️ Please complete the announcement."
+      "Please complete the announcement."
     );
 
     return;
@@ -558,15 +730,14 @@ function publishAnnouncement(){
     );
 
 
-  if(!grid){
-    return;
-  }
+  if (!grid) return;
 
 
   const card =
     document.createElement(
       "article"
     );
+
 
   card.className =
     "announcement";
@@ -577,8 +748,10 @@ function publishAnnouncement(){
       "div"
     );
 
+
   poster.className =
     "announcement-poster";
+
 
   poster.textContent =
     "📢";
@@ -589,19 +762,22 @@ function publishAnnouncement(){
       "div"
     );
 
+
   body.className =
     "announcement-body";
 
 
-  const date =
+  const categoryElement =
     document.createElement(
       "div"
     );
 
-  date.className =
+
+  categoryElement.className =
     "announcement-date";
 
-  date.textContent =
+
+  categoryElement.textContent =
     category.toUpperCase();
 
 
@@ -610,93 +786,65 @@ function publishAnnouncement(){
       "h3"
     );
 
+
   heading.textContent =
     title;
 
 
-  const paragraph =
+  const description =
     document.createElement(
       "p"
     );
 
-  paragraph.className =
+
+  description.className =
     "muted";
 
-  paragraph.textContent =
+
+  description.textContent =
     text;
 
 
-  body.appendChild(date);
-  body.appendChild(heading);
-  body.appendChild(paragraph);
+  body.appendChild(
+    categoryElement
+  );
 
-  card.appendChild(poster);
-  card.appendChild(body);
+  body.appendChild(
+    heading
+  );
+
+  body.appendChild(
+    description
+  );
+
+
+  card.appendChild(
+    poster
+  );
+
+  card.appendChild(
+    body
+  );
 
 
   grid.prepend(card);
 
 
-  saveAnnouncement(
-    title,
-    text,
-    category
-  );
-
-
   clearAnnouncementForm();
 
 
-  alert(
+  showNotification(
     "📢 Announcement published!"
   );
 
 }
 
 
-/* Save announcement */
+/* ==================================================
+   CLEAR ANNOUNCEMENT FORM
+================================================== */
 
-function saveAnnouncement(
-  title,
-  text,
-  category
-){
-
-  const announcements =
-    JSON.parse(
-      localStorage.getItem(
-        "ych-announcements"
-      ) || "[]"
-    );
-
-
-  announcements.push({
-
-    title:title,
-
-    text:text,
-
-    category:category,
-
-    date:
-      new Date().toISOString()
-
-  });
-
-
-  localStorage.setItem(
-    "ych-announcements",
-    JSON.stringify(
-      announcements
-    )
-  );
-
-}
-
-
-/* Clear announcement */
-
-function clearAnnouncementForm(){
+function clearAnnouncementForm() {
 
   const title =
     document.getElementById(
@@ -709,48 +857,56 @@ function clearAnnouncementForm(){
     );
 
 
-  if(title)
+  if (title) {
+
     title.value = "";
 
+  }
 
-  if(text)
+
+  if (text) {
+
     text.value = "";
+
+  }
 
 }
 
 
-/* =====================================================
-   ADMIN — CREATE COMPETITION
-===================================================== */
+/* ==================================================
+   CREATE COMPETITION
+================================================== */
 
-function createCompetition(){
+function createCompetition() {
 
   const name =
     document
       .getElementById(
         "competitionName"
       )
-      ?.value.trim();
+      .value.trim();
+
 
   const deadline =
     document
       .getElementById(
         "competitionDeadline"
       )
-      ?.value;
+      .value;
+
 
   const type =
     document
       .getElementById(
         "competitionType"
       )
-      ?.value;
+      .value;
 
 
-  if(!name || !deadline){
+  if (!name || !deadline) {
 
     alert(
-      "⚠️ Please complete the competition information."
+      "Please complete the competition information."
     );
 
     return;
@@ -758,19 +914,10 @@ function createCompetition(){
   }
 
 
-  const competition = {
-
-    name:name,
-
-    type:type,
-
-    deadline:deadline,
-
-    createdAt:
-      new Date().toISOString()
-
-  };
-
+  /*
+    Save competition locally
+    for this prototype.
+  */
 
   const competitions =
     JSON.parse(
@@ -780,53 +927,128 @@ function createCompetition(){
     );
 
 
-  competitions.push(
-    competition
-  );
+  competitions.push({
+
+    name: name,
+
+    type: type,
+
+    deadline: deadline,
+
+    created:
+      new Date().toISOString()
+
+  });
 
 
   localStorage.setItem(
     "ych-competitions",
-
     JSON.stringify(
       competitions
     )
   );
 
 
-  alert(
-    "🏆 Competition created successfully!\n\n" +
-    name
+  showNotification(
+    "🏆 Competition created successfully!"
   );
 
 
-  document.getElementById(
-    "competitionName"
-  ).value = "";
+  document
+    .getElementById(
+      "competitionName"
+    )
+    .value = "";
 
-  document.getElementById(
-    "competitionDeadline"
-  ).value = "";
+
+  document
+    .getElementById(
+      "competitionDeadline"
+    )
+    .value = "";
 
 }
 
 
-/* =====================================================
-   DEADLINE NOTIFICATIONS
-===================================================== */
+/* ==================================================
+   NOTIFICATION
+================================================== */
 
-function checkDeadlines(){
+function showNotification(message) {
+
+  const notification =
+    document.createElement(
+      "div"
+    );
+
+
+  notification.textContent =
+    message;
+
+
+  notification.style.position =
+    "fixed";
+
+  notification.style.bottom =
+    "25px";
+
+  notification.style.right =
+    "25px";
+
+  notification.style.zIndex =
+    "5000";
+
+  notification.style.background =
+    "#173f2a";
+
+  notification.style.color =
+    "white";
+
+  notification.style.padding =
+    "14px 20px";
+
+  notification.style.borderRadius =
+    "14px";
+
+  notification.style.fontWeight =
+    "800";
+
+  notification.style.boxShadow =
+    "0 10px 30px rgba(0,0,0,.2)";
+
+
+  document.body.appendChild(
+    notification
+  );
+
+
+  setTimeout(() => {
+
+    notification.remove();
+
+  }, 3000);
+
+}
+
+
+/* ==================================================
+   DEADLINE WARNING
+================================================== */
+
+function checkDeadlines() {
 
   document
-    .querySelectorAll(
-      ".countdown"
-    )
+    .querySelectorAll(".countdown")
     .forEach(counter => {
 
+      const date =
+        counter.dataset.date;
+
+      if (!date) return;
+
+
       const target =
-        new Date(
-          counter.dataset.date
-        ).getTime();
+        new Date(date).getTime();
 
 
       const remaining =
@@ -834,18 +1056,31 @@ function checkDeadlines(){
 
 
       /*
-        3 days before deadline
+        Warning when less than
+        24 hours remain.
       */
 
-      if(
+      if (
         remaining > 0 &&
         remaining <=
-        1000 * 60 * 60 * 24 * 3
-      ){
+          1000 *
+          60 *
+          60 *
+          24
+      ) {
 
-        console.log(
-          "🔔 Competition deadline is approaching!"
-        );
+        const competition =
+          counter.closest(
+            ".competition"
+          );
+
+
+        if (competition) {
+
+          competition.dataset.warning =
+            "true";
+
+        }
 
       }
 
@@ -854,54 +1089,33 @@ function checkDeadlines(){
 }
 
 
+checkDeadlines();
+
 setInterval(
   checkDeadlines,
   60000
 );
 
 
-/* =====================================================
-   MOBILE NAVIGATION
-===================================================== */
+/* ==================================================
+   PREVENT BODY SCROLL WHEN MODAL IS OPEN
+================================================== */
 
-document
-  .querySelectorAll(".nav a")
-  .forEach(link => {
-
-    link.addEventListener(
-      "click",
-      () => {
-
-        const nav =
-          document.getElementById(
-            "nav"
-          );
-
-        if(nav){
-
-          nav.classList.remove(
-            "mobile-open"
-          );
-
-        }
-
-      }
-    );
-
-  });
-
-
-/* =====================================================
-   INITIALIZATION
-===================================================== */
-
-document.addEventListener(
-  "DOMContentLoaded",
+window.addEventListener(
+  "beforeunload",
   () => {
 
-    updateCountdowns();
-
-    checkDeadlines();
+    document.body.style.overflow =
+      "";
 
   }
+);
+
+
+/* ==================================================
+   STARTUP MESSAGE
+================================================== */
+
+console.log(
+  "❤️ Youth Caring Heart platform loaded successfully."
 );
