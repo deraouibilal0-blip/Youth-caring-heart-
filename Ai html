@@ -1,0 +1,44 @@
+<!-- ================= YCH AI ASSISTANT ================= -->
+
+<button class="ai-button" onclick="openAI()">
+  🤖
+</button>
+
+<div class="ai-panel" id="aiPanel">
+
+  <div class="ai-header">
+    <div>
+      <strong>🤖 YCH AI Assistant</strong>
+      <small>Ask me about Youth Caring Heart</small>
+    </div>
+
+    <button onclick="closeAI()">×</button>
+  </div>
+
+  <div class="ai-messages" id="aiMessages">
+
+    <div class="ai-message bot">
+      👋 Hi! I'm the Youth Caring Heart AI Assistant.
+      <br><br>
+      You can ask me about competitions, activities,
+      announcements, or the platform.
+    </div>
+
+  </div>
+
+  <div class="ai-input">
+
+    <input
+      id="aiInput"
+      type="text"
+      placeholder="Ask something..."
+      onkeydown="if(event.key==='Enter') sendAI()"
+    >
+
+    <button onclick="sendAI()">
+      Send
+    </button>
+
+  </div>
+
+</div>
