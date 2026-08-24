@@ -1,589 +1,639 @@
 /* =========================================================
    YOUTH CARING HEART
-   MODERN FRONT-END JAVASCRIPT
+   PLATFORM FRONTEND SYSTEM
    ========================================================= */
-/* ================= LANGUAGE ================= */
-const translations = {
-  en: {
-    navHome: "Home",
-    navAbout: "About",
-    navAnnouncements: "Announcements",
-    navEvents: "Events",
-    navMagazine: "Magazine",
-    navGallery: "Gallery",
-    navMembers: "Members",
-    notifications: "Notifications"
-  },
-  fr: {
-    navHome: "Accueil",
-    navAbout: "À propos",
-    navAnnouncements: "Annonces",
-    navEvents: "Événements",
-    navMagazine: "Magazine",
-    navGallery: "Galerie",
-    navMembers: "Membres",
-    notifications: "Notifications"
-  },
-  ar: {
-    navHome: "الرئيسية",
-    navAbout: "من نحن",
-    navAnnouncements: "الإعلانات",
-    navEvents: "الفعاليات",
-    navMagazine: "المجلة",
-    navGallery: "المعرض",
-    navMembers: "المنخرطون",
-    notifications: "التنبيهات"
-  }
-};
-let currentLanguage =
-  localStorage.getItem("ych-language") || "en";
-function changeLanguage(language) {
-  if (!translations[language]) {
-    language = "en";
-  }
-  currentLanguage = language;
+
+
+/* ================= DARK MODE ================= */
+
+function toggleDarkMode() {
+
+  document.body.classList.toggle("dark");
+
+  const enabled =
+    document.body.classList.contains("dark");
+
   localStorage.setItem(
-    "ych-language",
-    language
+    "ych-dark-mode",
+    enabled ? "1" : "0"
   );
-  const t = translations[language];
+}
+
+
+if (
+  localStorage.getItem("ych-dark-mode") === "1"
+) {
+  document.body.classList.add("dark");
+}
+
+
+/* ================= MOBILE MENU ================= */
+
+function toggleMobileMenu() {
+
   document
-    .querySelectorAll("[data-key]")
-    .forEach(element => {
-      const key = element.dataset.key;
-      if (t[key]) {
-        element.textContent = t[key];
-      }
-    });
-  document.documentElement.lang = language;
-  if (language === "ar") {
-    document.body.dir = "rtl";
-  } else {
-    document.body.dir = "ltr";
-  }
+    .getElementById("mobileMenu")
+    .classList.toggle("active");
+
 }
-/* ================= NOTIFICATIONS ================= */
-function toggleNotifications() {
-  const panel =
-    document.getElementById(
-      "notification-panel"
-    );
-  panel.classList.toggle("active");
-}
-/* Close notification when clicking outside */
-document.addEventListener(
-  "click",
-  function(event) {
-    const panel =
-      document.getElementById(
-        "notification-panel"
-      );
-    const button =
-      document.querySelector(
-        ".notification-button"
-      );
-    if (
-      panel &&
-      panel.classList.contains("active") &&
-      !panel.contains(event.target) &&
-      !button.contains(event.target)
-    ) {
-      panel.classList.remove("active");
-    }
-  }
-);
-/* ================= COUNTDOWN ================= */
-function updateCountdowns() {
-  const countdowns =
-    document.querySelectorAll(
-      ".countdown"
-    );
-  countdowns.forEach(
-    countdown => {
-      const date =
-        new Date(
-          countdown.dataset.date
-        ).getTime();
-      const now =
-        new Date().getTime();
-      const distance =
-        date - now;
-      if (distance <= 0) {
-        countdown.textContent =
-          "Event is happening now!";
-        return;
-      }
-      const days =
-        Math.floor(
-          distance /
-          (1000 * 60 * 60 * 24)
-        );
-      const hours =
-        Math.floor(
-          (distance %
-            (1000 * 60 * 60 * 24)) /
-          (1000 * 60 * 60)
-        );
-      const minutes =
-        Math.floor(
-          (distance %
-            (1000 * 60 * 60)) /
-          (1000 * 60)
-        );
-      countdown.textContent =
-        `Starts in ${days}d ${hours}h ${minutes}m`;
-    }
-  );
-}
-updateCountdowns();
-setInterval(
-  updateCountdowns,
-  60000
-);
-/* ================= EVENTS ================= */
-function joinEvent(eventName) {
-  const member =
-    localStorage.getItem(
-      "ych-member"
-    );
-  if (!member) {
-    alert(
-      "Please log in to the Members Area first."
-    );
-    document
-      .getElementById("members")
-      .scrollIntoView({
-        behavior: "smooth"
-      });
-    return;
-  }
-  alert(
-    `${eventName}\n\nYou are registered for this activity.`
-  );
-}
-/* ================= ANNOUNCEMENT ================= */
-function showAnnouncement() {
-  alert(
-    "Youth Caring Heart is preparing new environmental initiatives for young people in Berkane."
-  );
-}
-/* ================= ARTICLES ================= */
-const articles = {
-  environment: {
-    en: {
-      category: "ENVIRONMENT",
-      title: "Building a Greener Berkane",
-      text:
-        "Young people can contribute to a cleaner and greener Berkane through awareness, teamwork, volunteering and responsible community action."
-    },
-    fr: {
-      category: "ENVIRONNEMENT",
-      title: "Construire un Berkane plus vert",
-      text:
-        "Les jeunes peuvent contribuer à un Berkane plus propre et plus vert grâce à la sensibilisation, au travail d'équipe et au bénévolat."
-    },
-    ar: {
-      category: "البيئة",
-      title: "نحو بركان أكثر خضرة",
-      text:
-        "يمكن للشباب المساهمة في جعل بركان أنظف وأكثر خضرة من خلال التوعية والعمل الجماعي والتطوع."
-    }
-  },
-  youth: {
-    en: {
-      category: "YOUTH",
-      title: "The Power of Youth Ideas",
-      text:
-        "Young people have ideas that can become meaningful projects when they work together and receive the right support."
-    },
-    fr: {
-      category: "JEUNESSE",
-      title: "Le pouvoir des idées des jeunes",
-      text:
-        "Les idées des jeunes peuvent devenir des projets utiles lorsqu'ils travaillent ensemble et reçoivent le soutien nécessaire."
-    },
-    ar: {
-      category: "الشباب",
-      title: "قوة أفكار الشباب",
-      text:
-        "يمكن لأفكار الشباب أن تتحول إلى مشاريع مفيدة عندما يعملون معًا ويحصلون على الدعم المناسب."
-    }
-  },
-  science: {
-    en: {
-      category: "SCIENCE",
-      title: "Young Minds, New Ideas",
-      text:
-        "Science and technology give young people new ways to learn, create and develop solutions for the future."
-    },
-    fr: {
-      category: "SCIENCE",
-      title: "Jeunes esprits, nouvelles idées",
-      text:
-        "La science et la technologie offrent aux jeunes de nouvelles possibilités pour apprendre, créer et préparer l'avenir."
-    },
-    ar: {
-      category: "العلوم والتكنولوجيا",
-      title: "عقول شابة وأفكار جديدة",
-      text:
-        "تمنح العلوم والتكنولوجيا الشباب طرقًا جديدة للتعلم والإبداع وتطوير حلول للمستقبل."
-    }
-  }
-};
-function openArticle(type) {
-  if (
-    !articles[type] ||
-    !articles[type][currentLanguage]
-  ) {
-    return;
-  }
-  const article =
-    articles[type][currentLanguage];
-  document.getElementById(
-    "article-category"
-  ).textContent =
-    article.category;
-  document.getElementById(
-    "article-title"
-  ).textContent =
-    article.title;
-  document.getElementById(
-    "article-text"
-  ).textContent =
-    article.text;
+
+function closeMobileMenu() {
+
   document
-    .getElementById("article-modal")
-    .classList.add("active");
-}
-function closeArticle() {
-  document
-    .getElementById("article-modal")
+    .getElementById("mobileMenu")
     .classList.remove("active");
+
 }
-/* ================= MEMBER LOGIN ================= */
-/*
-   DEMO ONLY
-   Code:
-   YCH2026
-   This is NOT secure authentication.
-   Real authentication will be connected
-   to the database later.
-*/
-function memberLogin() {
-  const name =
-    document
-      .getElementById("memberName")
-      .value
-      .trim();
-  const code =
-    document
-      .getElementById("memberCode")
-      .value
-      .trim();
-  const message =
-    document.getElementById(
-      "login-message"
-    );
-  if (!name || !code) {
-    message.textContent =
-      "Please enter your name and member code.";
-    return;
-  }
-  if (code !== "YCH2026") {
-    message.textContent =
-      "Incorrect member code.";
-    return;
-  }
-  localStorage.setItem(
-    "ych-member",
-    name
-  );
-  showMemberDashboard(name);
+
+
+/* ================= NOTIFICATIONS ================= */
+
+function toggleNotifications() {
+
+  document
+    .getElementById("notificationsPanel")
+    .classList.toggle("active");
+
 }
-function showMemberDashboard(name) {
-  const loginBox =
+
+
+/* ================= EVENT COUNTDOWN ================= */
+
+function startEventCountdown() {
+
+  const eventDate =
+    new Date("2026-08-28T10:00:00");
+
+  const element =
     document.getElementById(
-      "login-box"
+      "eventCountdown"
     );
-  const dashboard =
-    document.getElementById(
-      "member-dashboard"
-    );
-  const loggedMember =
-    document.getElementById(
-      "loggedMember"
-    );
-  const videoName =
-    document.getElementById(
-      "video-member-name"
-    );
-  if (loginBox) {
-    loginBox.style.display =
-      "none";
+
+  function update() {
+
+    const now = new Date();
+
+    const difference =
+      eventDate - now;
+
+    if (difference <= 0) {
+
+      element.textContent =
+        "The event is starting now.";
+
+      return;
+
+    }
+
+    const days =
+      Math.floor(
+        difference /
+        (1000 * 60 * 60 * 24)
+      );
+
+    const hours =
+      Math.floor(
+        difference /
+        (1000 * 60 * 60)
+      ) % 24;
+
+    const minutes =
+      Math.floor(
+        difference /
+        (1000 * 60)
+      ) % 60;
+
+    element.textContent =
+      `${days} days • ${hours} hours • ${minutes} minutes remaining`;
+
   }
-  if (dashboard) {
-    dashboard.style.display =
-      "block";
-  }
-  if (loggedMember) {
-    loggedMember.textContent =
-      name;
-  }
-  if (videoName) {
-    videoName.textContent =
-      name;
-  }
+
+  update();
+
+  setInterval(update, 60000);
+
 }
-function logoutMember() {
-  localStorage.removeItem(
-    "ych-member"
-  );
+
+
+/* ================= COMPETITION ================= */
+
+let currentCompetition = "";
+
+
+const competitions = {
+
+  football: {
+
+    type: "SPORTS",
+    title: "YCH Football League",
+    description:
+      "A youth football league where teams compete, collect points and progress through the official ranking."
+  },
+
+  chess: {
+
+    type: "MIND SPORTS",
+    title: "YCH Chess League",
+    description:
+      "An individual chess competition with an organized ranking and points system."
+  }
+
+};
+
+
+function openCompetition(type) {
+
+  currentCompetition = type;
+
+  const competition =
+    competitions[type];
+
+  if (!competition) return;
+
   document.getElementById(
-    "login-box"
-  ).style.display =
-    "block";
+    "modalCompetitionType"
+  ).textContent =
+    competition.type;
+
   document.getElementById(
-    "member-dashboard"
-  ).style.display =
-    "none";
+    "modalCompetitionTitle"
+  ).textContent =
+    competition.title;
+
+  document.getElementById(
+    "modalCompetitionDescription"
+  ).textContent =
+    competition.description;
+
+  document
+    .getElementById("competitionModal")
+    .classList.add("active");
+
 }
-/* ================= MEETING ROOM ================= */
-function openMeetingRoom() {
-  const member =
-    localStorage.getItem(
-      "ych-member"
+
+
+function closeCompetition() {
+
+  document
+    .getElementById("competitionModal")
+    .classList.remove("active");
+
+}
+
+
+function showLeagueTab(tab) {
+
+  document
+    .querySelectorAll(".league-tab")
+    .forEach(
+      element =>
+        element.classList.remove("active")
     );
-  if (!member) {
-    alert(
-      "Please log in first."
+
+  document
+    .querySelectorAll(".league-tabs button")
+    .forEach(
+      element =>
+        element.classList.remove("active")
     );
-    return;
+
+  const target =
+    document.getElementById(
+      tab + "Tab"
+    );
+
+  if (target) {
+    target.classList.add("active");
   }
-  const room =
-    document.getElementById(
-      "meeting-room"
+
+  const buttons =
+    document.querySelectorAll(
+      ".league-tabs button"
     );
-  room.classList.add("active");
-  room.scrollIntoView({
-    behavior: "smooth"
-  });
+
+  if (tab === "ranking") {
+    buttons[0].classList.add("active");
+  }
+
+  if (tab === "rules") {
+    buttons[1].classList.add("active");
+  }
+
+  if (tab === "register") {
+    buttons[2].classList.add("active");
+  }
+
 }
-function closeMeetingRoom() {
-  const room =
+
+
+/* ================= FOOTBALL REGISTRATION COUNTDOWN ================= */
+
+function startRegistrationCountdown() {
+
+  const deadline =
+    new Date("2026-08-29T23:59:59");
+
+  const element =
     document.getElementById(
-      "meeting-room"
+      "footballCountdown"
     );
-  room.classList.remove(
-    "active"
+
+  function update() {
+
+    const now = new Date();
+
+    const difference =
+      deadline - now;
+
+    if (difference <= 0) {
+
+      element.textContent =
+        "Registration closed";
+
+      return;
+
+    }
+
+    const days =
+      Math.ceil(
+        difference /
+        (1000 * 60 * 60 * 24)
+      );
+
+    element.textContent =
+      `${days} days`;
+
+  }
+
+  update();
+
+  setInterval(update, 60000);
+
+}
+
+
+/* ================= CALENDAR ================= */
+
+let calendarDate =
+  new Date(2026, 7, 1);
+
+
+function generateCalendar() {
+
+  const container =
+    document.getElementById(
+      "calendarDays"
+    );
+
+  const title =
+    document.getElementById(
+      "calendarMonth"
+    );
+
+  if (!container || !title) return;
+
+  container.innerHTML = "";
+
+  const year =
+    calendarDate.getFullYear();
+
+  const month =
+    calendarDate.getMonth();
+
+  const monthName =
+    calendarDate.toLocaleString(
+      "en-US",
+      {
+        month: "long"
+      }
+    );
+
+  title.textContent =
+    `${monthName} ${year}`;
+
+  const firstDay =
+    new Date(
+      year,
+      month,
+      1
+    ).getDay();
+
+  let mondayIndex =
+    firstDay === 0
+      ? 6
+      : firstDay - 1;
+
+  for (
+    let i = 0;
+    i < mondayIndex;
+    i++
+  ) {
+
+    const empty =
+      document.createElement("div");
+
+    empty.className =
+      "calendar-day";
+
+    container.appendChild(empty);
+
+  }
+
+
+  const days =
+    new Date(
+      year,
+      month + 1,
+      0
+    ).getDate();
+
+
+  for (
+    let day = 1;
+    day <= days;
+    day++
+  ) {
+
+    const cell =
+      document.createElement("div");
+
+    cell.className =
+      "calendar-day";
+
+    cell.textContent =
+      day;
+
+
+    if (
+      year === 2026 &&
+      month === 7 &&
+      day === 28
+    ) {
+
+      cell.classList.add("event");
+
+      const event =
+        document.createElement("span");
+
+      event.textContent =
+        "🌱 Green Berkane";
+
+      cell.appendChild(event);
+
+    }
+
+
+    if (
+      year === 2026 &&
+      month === 7 &&
+      day === 29
+    ) {
+
+      cell.classList.add("event");
+
+      const event =
+        document.createElement("span");
+
+      event.textContent =
+        "⚽ Registration";
+
+      cell.appendChild(event);
+
+    }
+
+
+    container.appendChild(cell);
+
+  }
+
+}
+
+
+function previousMonth() {
+
+  calendarDate.setMonth(
+    calendarDate.getMonth() - 1
   );
+
+  generateCalendar();
+
 }
-/* ================= CHAT ================= */
-function sendMessage() {
+
+
+function nextMonth() {
+
+  calendarDate.setMonth(
+    calendarDate.getMonth() + 1
+  );
+
+  generateCalendar();
+
+}
+
+
+/* ================= COMMUNITY CHAT ================= */
+
+function sendChatMessage() {
+
   const input =
     document.getElementById(
-      "meetingMessage"
+      "chatInput"
     );
+
   const text =
     input.value.trim();
-  const member =
-    localStorage.getItem(
-      "ych-member"
-    );
-  if (!member || !text) {
-    return;
-  }
-  const message =
-    document.createElement(
-      "div"
-    );
-  message.className =
-    "chat-message";
-  const name =
-    document.createElement(
-      "strong"
-    );
-  name.textContent =
-    member;
-  const paragraph =
-    document.createElement(
-      "p"
-    );
-  paragraph.textContent =
-    text;
-  const time =
-    document.createElement(
-      "small"
-    );
-  time.textContent =
-    "Just now";
-  message.appendChild(name);
-  message.appendChild(paragraph);
-  message.appendChild(time);
-  const messages =
+
+  if (!text) return;
+
+
+  const container =
     document.getElementById(
-      "messages"
+      "chatMessages"
     );
-  messages.appendChild(
-    message
-  );
+
+
+  const message =
+    document.createElement("div");
+
+  message.className =
+    "chat-message sent";
+
+
+  message.innerHTML = `
+    <div>
+      <strong>You</strong>
+      <p></p>
+      <small>Now</small>
+    </div>
+  `;
+
+
+  message
+    .querySelector("p")
+    .textContent = text;
+
+
+  container.appendChild(message);
+
   input.value = "";
-  messages.scrollTop =
-    messages.scrollHeight;
+
+  container.scrollTop =
+    container.scrollHeight;
+
 }
+
+
 document
-  .getElementById(
-    "meetingMessage"
-  )
+  .getElementById("chatInput")
   ?.addEventListener(
     "keydown",
     function(event) {
+
       if (event.key === "Enter") {
-        sendMessage();
+        sendChatMessage();
       }
+
     }
   );
-/* ================= CAMERA ================= */
-let cameraStream = null;
-async function startCamera() {
-  try {
-    cameraStream =
-      await navigator.mediaDevices.getUserMedia({
-        video: true,
-        audio: true
-      });
-    const video =
-      document.getElementById(
-        "local-video"
-      );
-    video.srcObject =
-      cameraStream;
-    video.style.display =
-      "block";
-    document.getElementById(
-      "camera-placeholder"
-    ).style.display =
-      "none";
-  } catch (error) {
-    alert(
-      "Camera permission was not granted."
-    );
+
+
+/* ================= MEETING ROOM ================= */
+
+function toggleMeetingButton(button) {
+
+  button.classList.toggle("active");
+
+  if (
+    button.textContent.includes("🎤")
+  ) {
+
+    button.textContent =
+      button.classList.contains("active")
+        ? "🔇"
+        : "🎤";
+
   }
-}
-/* ================= CAMERA CONTROL ================= */
-function toggleCamera() {
-  if (!cameraStream) {
-    startCamera();
-    return;
+
+  if (
+    button.textContent.includes("📹")
+  ) {
+
+    button.textContent =
+      button.classList.contains("active")
+        ? "🚫"
+        : "📹";
+
   }
-  const videoTracks =
-    cameraStream.getVideoTracks();
-  videoTracks.forEach(
-    track => {
-      track.enabled =
-        !track.enabled;
-    }
-  );
+
 }
-/* ================= MICROPHONE ================= */
-let micEnabled = true;
-function toggleMic() {
-  if (!cameraStream) {
-    alert(
-      "Enable the camera first to activate the microphone."
-    );
-    return;
-  }
-  const audioTracks =
-    cameraStream.getAudioTracks();
-  micEnabled =
-    !micEnabled;
-  audioTracks.forEach(
-    track => {
-      track.enabled =
-        micEnabled;
-    }
-  );
-  const button =
-    document.getElementById(
-      "mic-button"
-    );
-  button.querySelector(
-    "span"
-  ).textContent =
-    micEnabled
-      ? "Mute"
-      : "Unmute";
-}
-/* ================= SCREEN SHARE ================= */
+
+
 async function shareScreen() {
+
   if (
     !navigator.mediaDevices ||
     !navigator.mediaDevices.getDisplayMedia
   ) {
+
     alert(
       "Screen sharing is not supported by this browser."
     );
+
     return;
+
   }
+
   try {
-    const screen =
-      await navigator.mediaDevices.getDisplayMedia({
+
+    await navigator
+      .mediaDevices
+      .getDisplayMedia({
         video: true
       });
-    const video =
-      document.getElementById(
-        "local-video"
-      );
-    video.srcObject =
-      screen;
+
   } catch (error) {
+
     console.log(
       "Screen sharing cancelled."
     );
+
   }
+
 }
-/* ================= EVENTS NAVIGATION ================= */
-function scrollToEvents() {
-  document
-    .getElementById("events")
-    .scrollIntoView({
+
+
+/* ================= PROFILE ================= */
+
+function openProfile() {
+
+  const profile =
+    document.getElementById(
+      "profile"
+    );
+
+  if (profile) {
+
+    profile.scrollIntoView({
       behavior: "smooth"
     });
-}
-/* ================= ESCAPE ================= */
-document.addEventListener(
-  "keydown",
-  function(event) {
-    if (event.key === "Escape") {
-      closeArticle();
-      const notificationPanel =
-        document.getElementById(
-          "notification-panel"
-        );
-      if (notificationPanel) {
-        notificationPanel.classList.remove(
-          "active"
-        );
-      }
-    }
+
   }
-);
-/* ================= STARTUP ================= */
+
+}
+
+
+/* ================= INITIALIZATION ================= */
+
 document.addEventListener(
   "DOMContentLoaded",
   function() {
-    changeLanguage(
-      currentLanguage
-    );
-    const savedMember =
-      localStorage.getItem(
-        "ych-member"
-      );
-    if (savedMember) {
-      showMemberDashboard(
-        savedMember
-      );
-    }
-    updateCountdowns();
+
+    startEventCountdown();
+
+    startRegistrationCountdown();
+
+    generateCalendar();
+
   }
 );
+
+
+/* ================= CLOSE MODAL WITH ESC ================= */
+
+document.addEventListener(
+  "keydown",
+  function(event) {
+
+    if (event.key === "Escape") {
+
+      closeCompetition();
+
+      document
+        .getElementById("notificationsPanel")
+        ?.classList.remove("active");
+
+    }
+
+  }
+);
+
+
+/* ================= FUTURE AI SYSTEM ================= */
+
+/*
+   AI MODULE — FUTURE BACKEND
+
+   Later we can connect an AI service to:
+
+   1. Calculate competition points.
+   2. Detect registration deadlines.
+   3. Recommend activities.
+   4. Notify members.
+   5. Summarize announcements.
+   6. Help administrators manage competitions.
+   7. Analyze participation statistics.
+
+   IMPORTANT:
+   The real AI API key must NEVER be placed
+   directly inside this frontend JavaScript file.
+*/
