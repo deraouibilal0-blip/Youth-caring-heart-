@@ -1,639 +1,504 @@
-/* =========================================================
-   YOUTH CARING HEART
-   PLATFORM FRONTEND SYSTEM
-   ========================================================= */
+/* =====================================================
+   YOUTH CARING HEART — JAVASCRIPT
+   ===================================================== */
+
+/* ================= MOBILE MENU ================= */
+
+function toggleMenu() {
+  const nav = document.getElementById("nav");
+
+  if (nav) {
+    nav.classList.toggle("mobile-open");
+  }
+}
 
 
 /* ================= DARK MODE ================= */
 
-function toggleDarkMode() {
-
+function toggleDark() {
   document.body.classList.toggle("dark");
 
-  const enabled =
-    document.body.classList.contains("dark");
+  const isDark = document.body.classList.contains("dark");
 
-  localStorage.setItem(
-    "ych-dark-mode",
-    enabled ? "1" : "0"
-  );
+  localStorage.setItem("ych-dark", isDark ? "true" : "false");
 }
 
-
-if (
-  localStorage.getItem("ych-dark-mode") === "1"
-) {
+if (localStorage.getItem("ych-dark") === "true") {
   document.body.classList.add("dark");
 }
 
 
-/* ================= MOBILE MENU ================= */
+/* ================= LANGUAGE ================= */
 
-function toggleMobileMenu() {
+function setLanguage(language) {
 
-  document
-    .getElementById("mobileMenu")
-    .classList.toggle("active");
+  if (language === "ar") {
+    document.documentElement.lang = "ar";
+    document.documentElement.dir = "rtl";
 
-}
+    alert("🇲🇦 العربية ستكون متاحة بشكل كامل في النسخة القادمة.");
+  }
 
-function closeMobileMenu() {
+  else if (language === "fr") {
+    document.documentElement.lang = "fr";
+    document.documentElement.dir = "ltr";
 
-  document
-    .getElementById("mobileMenu")
-    .classList.remove("active");
+    alert("🇫🇷 La version française sera disponible prochainement.");
+  }
 
-}
-
-
-/* ================= NOTIFICATIONS ================= */
-
-function toggleNotifications() {
-
-  document
-    .getElementById("notificationsPanel")
-    .classList.toggle("active");
-
+  else {
+    document.documentElement.lang = "en";
+    document.documentElement.dir = "ltr";
+  }
 }
 
 
-/* ================= EVENT COUNTDOWN ================= */
+/* ================= COMPETITION COUNTDOWN ================= */
 
-function startEventCountdown() {
+function updateCountdowns() {
 
-  const eventDate =
-    new Date("2026-08-28T10:00:00");
+  const countdowns = document.querySelectorAll(".countdown");
 
-  const element =
-    document.getElementById(
-      "eventCountdown"
-    );
+  countdowns.forEach(function (counter) {
 
-  function update() {
+    const date = counter.getAttribute("data-date");
 
-    const now = new Date();
+    if (!date) return;
 
-    const difference =
-      eventDate - now;
+    const target = new Date(date).getTime();
+    const now = Date.now();
 
-    if (difference <= 0) {
+    let distance = target - now;
 
-      element.textContent =
-        "The event is starting now.";
-
-      return;
-
+    if (distance < 0) {
+      distance = 0;
     }
 
-    const days =
-      Math.floor(
-        difference /
-        (1000 * 60 * 60 * 24)
-      );
-
-    const hours =
-      Math.floor(
-        difference /
-        (1000 * 60 * 60)
-      ) % 24;
-
-    const minutes =
-      Math.floor(
-        difference /
-        (1000 * 60)
-      ) % 60;
-
-    element.textContent =
-      `${days} days • ${hours} hours • ${minutes} minutes remaining`;
-
-  }
-
-  update();
-
-  setInterval(update, 60000);
-
-}
-
-
-/* ================= COMPETITION ================= */
-
-let currentCompetition = "";
-
-
-const competitions = {
-
-  football: {
-
-    type: "SPORTS",
-    title: "YCH Football League",
-    description:
-      "A youth football league where teams compete, collect points and progress through the official ranking."
-  },
-
-  chess: {
-
-    type: "MIND SPORTS",
-    title: "YCH Chess League",
-    description:
-      "An individual chess competition with an organized ranking and points system."
-  }
-
-};
-
-
-function openCompetition(type) {
-
-  currentCompetition = type;
-
-  const competition =
-    competitions[type];
-
-  if (!competition) return;
-
-  document.getElementById(
-    "modalCompetitionType"
-  ).textContent =
-    competition.type;
-
-  document.getElementById(
-    "modalCompetitionTitle"
-  ).textContent =
-    competition.title;
-
-  document.getElementById(
-    "modalCompetitionDescription"
-  ).textContent =
-    competition.description;
-
-  document
-    .getElementById("competitionModal")
-    .classList.add("active");
-
-}
-
-
-function closeCompetition() {
-
-  document
-    .getElementById("competitionModal")
-    .classList.remove("active");
-
-}
-
-
-function showLeagueTab(tab) {
-
-  document
-    .querySelectorAll(".league-tab")
-    .forEach(
-      element =>
-        element.classList.remove("active")
+    const days = Math.floor(
+      distance / (1000 * 60 * 60 * 24)
     );
 
-  document
-    .querySelectorAll(".league-tabs button")
-    .forEach(
-      element =>
-        element.classList.remove("active")
+    const hours = Math.floor(
+      (distance % (1000 * 60 * 60 * 24)) /
+      (1000 * 60 * 60)
     );
 
-  const target =
-    document.getElementById(
-      tab + "Tab"
+    const minutes = Math.floor(
+      (distance % (1000 * 60 * 60)) /
+      (1000 * 60)
     );
 
-  if (target) {
-    target.classList.add("active");
-  }
-
-  const buttons =
-    document.querySelectorAll(
-      ".league-tabs button"
+    const seconds = Math.floor(
+      (distance % (1000 * 60)) /
+      1000
     );
 
-  if (tab === "ranking") {
-    buttons[0].classList.add("active");
-  }
 
-  if (tab === "rules") {
-    buttons[1].classList.add("active");
-  }
-
-  if (tab === "register") {
-    buttons[2].classList.add("active");
-  }
-
-}
+    const daysElement = counter.querySelector(".days");
+    const hoursElement = counter.querySelector(".hours");
+    const minutesElement = counter.querySelector(".minutes");
+    const secondsElement = counter.querySelector(".seconds");
 
 
-/* ================= FOOTBALL REGISTRATION COUNTDOWN ================= */
-
-function startRegistrationCountdown() {
-
-  const deadline =
-    new Date("2026-08-29T23:59:59");
-
-  const element =
-    document.getElementById(
-      "footballCountdown"
-    );
-
-  function update() {
-
-    const now = new Date();
-
-    const difference =
-      deadline - now;
-
-    if (difference <= 0) {
-
-      element.textContent =
-        "Registration closed";
-
-      return;
-
+    if (daysElement) {
+      daysElement.textContent =
+        String(days).padStart(2, "0");
     }
 
-    const days =
-      Math.ceil(
-        difference /
-        (1000 * 60 * 60 * 24)
-      );
-
-    element.textContent =
-      `${days} days`;
-
-  }
-
-  update();
-
-  setInterval(update, 60000);
-
-}
-
-
-/* ================= CALENDAR ================= */
-
-let calendarDate =
-  new Date(2026, 7, 1);
-
-
-function generateCalendar() {
-
-  const container =
-    document.getElementById(
-      "calendarDays"
-    );
-
-  const title =
-    document.getElementById(
-      "calendarMonth"
-    );
-
-  if (!container || !title) return;
-
-  container.innerHTML = "";
-
-  const year =
-    calendarDate.getFullYear();
-
-  const month =
-    calendarDate.getMonth();
-
-  const monthName =
-    calendarDate.toLocaleString(
-      "en-US",
-      {
-        month: "long"
-      }
-    );
-
-  title.textContent =
-    `${monthName} ${year}`;
-
-  const firstDay =
-    new Date(
-      year,
-      month,
-      1
-    ).getDay();
-
-  let mondayIndex =
-    firstDay === 0
-      ? 6
-      : firstDay - 1;
-
-  for (
-    let i = 0;
-    i < mondayIndex;
-    i++
-  ) {
-
-    const empty =
-      document.createElement("div");
-
-    empty.className =
-      "calendar-day";
-
-    container.appendChild(empty);
-
-  }
-
-
-  const days =
-    new Date(
-      year,
-      month + 1,
-      0
-    ).getDate();
-
-
-  for (
-    let day = 1;
-    day <= days;
-    day++
-  ) {
-
-    const cell =
-      document.createElement("div");
-
-    cell.className =
-      "calendar-day";
-
-    cell.textContent =
-      day;
-
-
-    if (
-      year === 2026 &&
-      month === 7 &&
-      day === 28
-    ) {
-
-      cell.classList.add("event");
-
-      const event =
-        document.createElement("span");
-
-      event.textContent =
-        "🌱 Green Berkane";
-
-      cell.appendChild(event);
-
+    if (hoursElement) {
+      hoursElement.textContent =
+        String(hours).padStart(2, "0");
     }
 
-
-    if (
-      year === 2026 &&
-      month === 7 &&
-      day === 29
-    ) {
-
-      cell.classList.add("event");
-
-      const event =
-        document.createElement("span");
-
-      event.textContent =
-        "⚽ Registration";
-
-      cell.appendChild(event);
-
+    if (minutesElement) {
+      minutesElement.textContent =
+        String(minutes).padStart(2, "0");
     }
 
-
-    container.appendChild(cell);
-
-  }
-
+    if (secondsElement) {
+      secondsElement.textContent =
+        String(seconds).padStart(2, "0");
+    }
+  });
 }
 
+updateCountdowns();
 
-function previousMonth() {
+setInterval(updateCountdowns, 1000);
 
-  calendarDate.setMonth(
-    calendarDate.getMonth() - 1
+
+/* ================= COMPETITION JOIN ================= */
+
+function joinCompetition(name) {
+
+  alert(
+    "🏆 " +
+    name +
+    "\n\nRegistration selected successfully!\n\n" +
+    "The complete registration system will be connected later."
   );
-
-  generateCalendar();
-
-}
-
-
-function nextMonth() {
-
-  calendarDate.setMonth(
-    calendarDate.getMonth() + 1
-  );
-
-  generateCalendar();
-
 }
 
 
 /* ================= COMMUNITY CHAT ================= */
 
-function sendChatMessage() {
+function sendChat() {
 
-  const input =
-    document.getElementById(
-      "chatInput"
-    );
+  const input = document.getElementById("chatInput");
+  const messages = document.getElementById("chatMessages");
 
-  const text =
-    input.value.trim();
+  if (!input || !messages) return;
+
+  const text = input.value.trim();
 
   if (!text) return;
 
 
-  const container =
-    document.getElementById(
-      "chatMessages"
-    );
+  const message = document.createElement("div");
 
-
-  const message =
-    document.createElement("div");
-
-  message.className =
-    "chat-message sent";
-
+  message.className = "message mine";
 
   message.innerHTML = `
-    <div>
-      <strong>You</strong>
-      <p></p>
-      <small>Now</small>
-    </div>
+    <small>You</small>
+    <div></div>
   `;
 
+  message.querySelector("div").textContent = text;
 
-  message
-    .querySelector("p")
-    .textContent = text;
-
-
-  container.appendChild(message);
+  messages.appendChild(message);
 
   input.value = "";
 
-  container.scrollTop =
-    container.scrollHeight;
-
+  messages.scrollTop = messages.scrollHeight;
 }
 
 
-document
-  .getElementById("chatInput")
-  ?.addEventListener(
-    "keydown",
-    function(event) {
+/* ================= CHAT CHANNELS ================= */
 
-      if (event.key === "Enter") {
-        sendChatMessage();
+document.addEventListener("DOMContentLoaded", function () {
+
+  const channels = document.querySelectorAll(".channel");
+
+  channels.forEach(function (channel) {
+
+    channel.addEventListener("click", function () {
+
+      channels.forEach(function (item) {
+        item.classList.remove("active");
+      });
+
+      channel.classList.add("active");
+
+      const header = document.querySelector(".chat-header");
+
+      if (header) {
+        header.innerHTML =
+          channel.textContent +
+          '<span style="float:right;font-size:12px;opacity:.6">Community</span>';
       }
+    });
 
-    }
-  );
+  });
+
+});
 
 
 /* ================= MEETING ROOM ================= */
 
-function toggleMeetingButton(button) {
+function meetingAction(action) {
 
-  button.classList.toggle("active");
+  if (action === "Leave") {
 
-  if (
-    button.textContent.includes("🎤")
-  ) {
+    alert("📞 You left the meeting.");
 
-    button.textContent =
-      button.classList.contains("active")
-        ? "🔇"
-        : "🎤";
-
+    return;
   }
 
-  if (
-    button.textContent.includes("📹")
-  ) {
 
-    button.textContent =
-      button.classList.contains("active")
-        ? "🚫"
-        : "📹";
+  if (action === "Camera") {
 
+    alert("📹 Camera control selected.");
+
+    return;
   }
 
+
+  if (action === "Microphone") {
+
+    alert("🎤 Microphone control selected.");
+
+    return;
+  }
+
+
+  if (action === "Screen Share") {
+
+    alert("🖥️ Screen sharing will be connected later.");
+
+    return;
+  }
+
+
+  if (action === "Chat") {
+
+    alert("💬 Meeting chat opened.");
+
+    return;
+  }
 }
 
 
-async function shareScreen() {
+/* ================= ANNOUNCEMENT MANAGER ================= */
+
+function publishAnnouncement() {
+
+  const titleElement =
+    document.getElementById("announcementTitle");
+
+  const textElement =
+    document.getElementById("announcementText");
+
+  const categoryElement =
+    document.getElementById("announcementCategory");
+
+  const grid =
+    document.getElementById("announcementGrid");
+
 
   if (
-    !navigator.mediaDevices ||
-    !navigator.mediaDevices.getDisplayMedia
+    !titleElement ||
+    !textElement ||
+    !categoryElement ||
+    !grid
   ) {
+    return;
+  }
+
+
+  const title = titleElement.value.trim();
+
+  const text = textElement.value.trim();
+
+  const category = categoryElement.value;
+
+
+  if (!title || !text) {
+
+    alert("⚠️ Please complete the announcement.");
+
+    return;
+  }
+
+
+  const card = document.createElement("article");
+
+  card.className = "announcement";
+
+
+  card.innerHTML = `
+    <div class="poster">📢</div>
+
+    <div class="announcement-body">
+
+      <small>
+        ${category.toUpperCase()}
+      </small>
+
+      <h3></h3>
+
+      <p></p>
+
+    </div>
+  `;
+
+
+  card.querySelector("h3").textContent = title;
+
+  card.querySelector("p").textContent = text;
+
+
+  grid.prepend(card);
+
+
+  titleElement.value = "";
+
+  textElement.value = "";
+
+
+  alert("📢 Announcement published!");
+}
+
+
+/* ================= CLEAR ANNOUNCEMENT ================= */
+
+function clearAnnouncementForm() {
+
+  const title =
+    document.getElementById("announcementTitle");
+
+  const text =
+    document.getElementById("announcementText");
+
+
+  if (title) {
+    title.value = "";
+  }
+
+  if (text) {
+    text.value = "";
+  }
+}
+
+
+/* ================= CREATE COMPETITION ================= */
+
+function createCompetition() {
+
+  const nameElement =
+    document.getElementById("competitionName");
+
+  const deadlineElement =
+    document.getElementById("competitionDeadline");
+
+  const typeElement =
+    document.getElementById("competitionType");
+
+
+  if (
+    !nameElement ||
+    !deadlineElement ||
+    !typeElement
+  ) {
+    return;
+  }
+
+
+  const name = nameElement.value.trim();
+
+  const deadline = deadlineElement.value;
+
+  const type = typeElement.value;
+
+
+  if (!name || !deadline) {
 
     alert(
-      "Screen sharing is not supported by this browser."
+      "⚠️ Please complete the competition information."
     );
 
     return;
-
   }
 
-  try {
 
-    await navigator
-      .mediaDevices
-      .getDisplayMedia({
-        video: true
-      });
+  alert(
+    "🏆 Competition created!\n\n" +
+    "Name: " +
+    name +
+    "\nType: " +
+    type +
+    "\nDeadline: " +
+    deadline +
+    "\n\nThe database will be connected in the next stage."
+  );
 
-  } catch (error) {
 
-    console.log(
-      "Screen sharing cancelled."
-    );
+  nameElement.value = "";
 
-  }
-
+  deadlineElement.value = "";
 }
 
 
-/* ================= PROFILE ================= */
+/* ================= DEADLINE NOTIFICATIONS ================= */
 
-function openProfile() {
+function checkDeadlines() {
 
-  const profile =
-    document.getElementById(
-      "profile"
-    );
-
-  if (profile) {
-
-    profile.scrollIntoView({
-      behavior: "smooth"
-    });
-
-  }
-
-}
+  const countdowns =
+    document.querySelectorAll(".countdown");
 
 
-/* ================= INITIALIZATION ================= */
+  countdowns.forEach(function (counter) {
 
-document.addEventListener(
-  "DOMContentLoaded",
-  function() {
-
-    startEventCountdown();
-
-    startRegistrationCountdown();
-
-    generateCalendar();
-
-  }
-);
+    const date =
+      counter.getAttribute("data-date");
 
 
-/* ================= CLOSE MODAL WITH ESC ================= */
+    if (!date) return;
 
-document.addEventListener(
-  "keydown",
-  function(event) {
 
-    if (event.key === "Escape") {
+    const target =
+      new Date(date).getTime();
 
-      closeCompetition();
 
-      document
-        .getElementById("notificationsPanel")
-        ?.classList.remove("active");
+    const remaining =
+      target - Date.now();
 
+
+    const threeDays =
+      1000 * 60 * 60 * 24 * 3;
+
+
+    if (
+      remaining > 0 &&
+      remaining <= threeDays
+    ) {
+
+      console.log(
+        "🔔 Competition deadline is approaching!"
+      );
     }
 
+  });
+}
+
+
+setInterval(checkDeadlines, 60000);
+
+
+/* ================= CLOSE MOBILE MENU ================= */
+
+document.addEventListener("click", function (event) {
+
+  const nav =
+    document.getElementById("nav");
+
+  const menuButton =
+    document.querySelector(".menu-btn");
+
+
+  if (!nav || !menuButton) return;
+
+
+  if (
+    window.innerWidth <= 900 &&
+    !nav.contains(event.target) &&
+    !menuButton.contains(event.target)
+  ) {
+
+    nav.classList.remove("mobile-open");
   }
+
+});
+
+
+/* ================= ESCAPE KEY ================= */
+
+document.addEventListener("keydown", function (event) {
+
+  if (event.key === "Escape") {
+
+    const nav =
+      document.getElementById("nav");
+
+    if (nav) {
+      nav.classList.remove("mobile-open");
+    }
+  }
+
+});
+
+
+/* ================= STARTUP ================= */
+
+console.log(
+  "❤️ Youth Caring Heart platform loaded successfully."
 );
-
-
-/* ================= FUTURE AI SYSTEM ================= */
-
-/*
-   AI MODULE — FUTURE BACKEND
-
-   Later we can connect an AI service to:
-
-   1. Calculate competition points.
-   2. Detect registration deadlines.
-   3. Recommend activities.
-   4. Notify members.
-   5. Summarize announcements.
-   6. Help administrators manage competitions.
-   7. Analyze participation statistics.
-
-   IMPORTANT:
-   The real AI API key must NEVER be placed
-   directly inside this frontend JavaScript file.
-*/
