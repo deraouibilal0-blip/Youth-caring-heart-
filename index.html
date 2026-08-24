@@ -4,532 +4,636 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Youth Caring Heart</title>
-  <!-- Main Design -->
-  <link rel="stylesheet" href="style.css">
-  <!-- Google Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<!-- ================= HEADER ================= -->
 <header class="header">
-  <div class="logo">
-    ❤️ Youth Caring Heart
-  </div>
-  <nav>
+  <a href="#home" class="logo">
+    <span class="logo-heart">♥</span>
+    <span>Youth Caring Heart</span>
+  </a>
+  <nav class="main-nav">
     <a href="#home" data-key="navHome">Home</a>
-    <a href="#about" data-key="navAbout">About Us</a>
+    <a href="#about" data-key="navAbout">About</a>
+    <a href="#announcements" data-key="navAnnouncements">Announcements</a>
+    <a href="#events" data-key="navEvents">Events</a>
     <a href="#magazine" data-key="navMagazine">Magazine</a>
-    <a href="#news" data-key="navNews">News</a>
-    <a href="#environment" data-key="navEnvironment">Environment</a>
-    <a href="#activities" data-key="navActivities">Activities</a>
     <a href="#gallery" data-key="navGallery">Gallery</a>
     <a href="#members" data-key="navMembers">Members</a>
-    <a href="#join" data-key="navJoin">Join Us</a>
   </nav>
-  <div class="languages">
-    <button onclick="changeLanguage('en')">EN</button>
-    <button onclick="changeLanguage('fr')">FR</button>
-    <button onclick="changeLanguage('ar')">AR</button>
+  <div class="header-actions">
+    <button class="notification-button" onclick="toggleNotifications()">
+      🔔
+      <span id="notification-count">3</span>
+    </button>
+    <div class="languages">
+      <button onclick="changeLanguage('en')">EN</button>
+      <button onclick="changeLanguage('fr')">FR</button>
+      <button onclick="changeLanguage('ar')">AR</button>
+    </div>
   </div>
 </header>
+<!-- ================= NOTIFICATIONS ================= -->
+<div id="notification-panel" class="notification-panel">
+  <div class="notification-header">
+    <div>
+      <small>YOUTH CARING HEART</small>
+      <h3 data-key="notifications">Notifications</h3>
+    </div>
+    <button onclick="toggleNotifications()">×</button>
+  </div>
+  <div class="notification-item unread">
+    <span>🌱</span>
+    <div>
+      <strong>Community Clean-Up</strong>
+      <p>Upcoming event in 2 days.</p>
+      <small>Today</small>
+    </div>
+  </div>
+  <div class="notification-item unread">
+    <span>📢</span>
+    <div>
+      <strong>New Announcement</strong>
+      <p>A new Youth Caring Heart announcement was published.</p>
+      <small>Today</small>
+    </div>
+  </div>
+  <div class="notification-item">
+    <span>💡</span>
+    <div>
+      <strong>Youth Ideas Workshop</strong>
+      <p>The workshop is coming soon.</p>
+      <small>Yesterday</small>
+    </div>
+  </div>
+</div>
 <main>
-<!-- ================= HOME ================= -->
+<!-- ================= HERO ================= -->
 <section id="home" class="hero">
+  <div class="hero-overlay"></div>
   <div class="hero-content">
-    <span class="label" data-key="heroLabel">
+    <span class="eyebrow">
       BERKANE • MOROCCO
     </span>
     <h1>
-      <span id="hero-title">
-        Young People.<br>
-        <span>Positive Action.</span>
-      </span>
+      Young People.
+      <span>Positive Action.</span>
     </h1>
-    <p id="hero-text">
-      A youth platform connecting young people in Berkane
-      through community, environment, education and ideas.
+    <p>
+      A youth platform connecting young people through
+      community, environment, education and ideas.
     </p>
-    <a href="#activities"
-       class="button"
-       data-key="heroButton">
-       Explore Activities
-    </a>
+    <div class="hero-buttons">
+      <a href="#events" class="primary-button">
+        Explore Events →
+      </a>
+      <a href="#about" class="secondary-button">
+        Discover Us
+      </a>
+    </div>
+  </div>
+  <div class="hero-statistics">
+    <div>
+      <strong>2026</strong>
+      <span>Founded</span>
+    </div>
+    <div>
+      <strong>YOUTH</strong>
+      <span>Community</span>
+    </div>
+    <div>
+      <strong>BERKANE</strong>
+      <span>Morocco</span>
+    </div>
   </div>
 </section>
 <!-- ================= ABOUT ================= -->
-<section id="about" class="about-section">
-  <div class="about-content">
-    <span data-key="aboutLabel">
-      ❤️ ABOUT US
-    </span>
-    <h2 data-key="aboutTitle">
-      Young hearts. Positive action.
+<section id="about" class="section about-section">
+  <div class="section-heading">
+    <span class="eyebrow">❤️ ABOUT US</span>
+    <h2>
+      Young hearts.<br>
+      <span>Positive action.</span>
     </h2>
-    <p data-key="aboutText">
+    <p>
       Youth Caring Heart is a youth initiative based in Berkane,
       Morocco, created to encourage young people to participate,
       volunteer and create positive change in their community.
     </p>
-    <div class="about-points">
-      <div>
-        <strong data-key="communityTitle">
-          🤝 Community
-        </strong>
-        <p data-key="communityText">
-          Connecting young people through meaningful activities.
-        </p>
-      </div>
-      <div>
-        <strong data-key="environmentPointTitle">
-          🌱 Environment
-        </strong>
-        <p data-key="environmentPointText">
-          Encouraging awareness and positive environmental action.
-        </p>
-      </div>
-      <div>
-        <strong data-key="ideasTitle">
-          💡 Ideas
-        </strong>
-        <p data-key="ideasText">
-          Giving young people a space to share and develop ideas.
-        </p>
-      </div>
+  </div>
+  <div class="about-grid">
+    <div class="info-card">
+      <div class="card-icon">🤝</div>
+      <h3>Community</h3>
+      <p>
+        Connecting young people through meaningful activities
+        and community projects.
+      </p>
+    </div>
+    <div class="info-card">
+      <div class="card-icon">🌱</div>
+      <h3>Environment</h3>
+      <p>
+        Encouraging environmental awareness and responsible
+        local action.
+      </p>
+    </div>
+    <div class="info-card">
+      <div class="card-icon">💡</div>
+      <h3>Ideas</h3>
+      <p>
+        Giving young people a space to share ideas and develop
+        positive projects.
+      </p>
     </div>
   </div>
 </section>
-<!-- ================= MAGAZINE ================= -->
-<section id="magazine" class="section">
-  <div class="section-title">
-    <span data-key="magazineLabel">
-      OUR MAGAZINE
-    </span>
-    <h2 data-key="magazineTitle">
-      Stories that inspire action.
-    </h2>
-    <p data-key="magazineText">
-      Discover stories, ideas and articles about youth,
-      science, technology and the environment.
-    </p>
-  </div>
-  <div class="articles">
-    <article class="card">
-      <div class="card-image environment-image">
-        🌱
-      </div>
-      <span data-key="articleEnvironmentCategory">
-        ENVIRONMENT
-      </span>
-      <h3 data-key="articleEnvironmentTitle">
-        Building a Greener Berkane
-      </h3>
-      <p data-key="articleEnvironmentText">
-        Discover how young people can help protect
-        the environment and create positive change.
+<!-- ================= ANNOUNCEMENTS ================= -->
+<section id="announcements" class="section announcements-section">
+  <div class="section-top">
+    <div>
+      <span class="eyebrow">📢 NEWS CENTER</span>
+      <h2>Latest Announcements</h2>
+      <p>
+        Follow the latest updates from Youth Caring Heart.
       </p>
-      <a href="#"
-         onclick="openArticle('environment'); return false;"
-         data-key="readMore">
-         Read More →
-      </a>
+    </div>
+    <button class="outline-button">
+      View All →
+    </button>
+  </div>
+  <div class="announcement-grid">
+    <article class="announcement-card featured">
+      <div class="announcement-image green">
+        <span>🌱</span>
+      </div>
+      <div class="announcement-body">
+        <div class="announcement-meta">
+          <span>IMPORTANT</span>
+          <time>24 AUG 2026</time>
+        </div>
+        <h3>
+          New environmental activities are coming
+        </h3>
+        <p>
+          Youth Caring Heart is preparing new environmental
+          initiatives for young people in Berkane.
+        </p>
+        <button onclick="showAnnouncement()">
+          Read Announcement →
+        </button>
+      </div>
     </article>
-    <article class="card">
-      <div class="card-image youth-image">
+    <article class="announcement-card">
+      <div class="announcement-icon blue">
+        📢
+      </div>
+      <div class="announcement-body">
+        <div class="announcement-meta">
+          <span>COMMUNITY</span>
+          <time>22 AUG 2026</time>
+        </div>
+        <h3>
+          New youth activities
+        </h3>
+        <p>
+          New community activities will be announced soon.
+        </p>
+        <button>
+          Read More →
+        </button>
+      </div>
+    </article>
+    <article class="announcement-card">
+      <div class="announcement-icon orange">
         💡
       </div>
-      <span data-key="articleYouthCategory">
-        YOUTH
-      </span>
-      <h3 data-key="articleYouthTitle">
-        The Power of Youth Ideas
-      </h3>
-      <p data-key="articleYouthText">
-        Young people have ideas that can become
-        meaningful projects for their community.
-      </p>
-      <a href="#"
-         onclick="openArticle('youth'); return false;"
-         data-key="readMore">
-         Read More →
-      </a>
-    </article>
-    <article class="card">
-      <div class="card-image science-image">
-        🔬
+      <div class="announcement-body">
+        <div class="announcement-meta">
+          <span>YOUTH</span>
+          <time>20 AUG 2026</time>
+        </div>
+        <h3>
+          Share your ideas
+        </h3>
+        <p>
+          Young people can share ideas for future projects.
+        </p>
+        <button>
+          Read More →
+        </button>
       </div>
-      <span data-key="articleScienceCategory">
-        SCIENCE & TECHNOLOGY
-      </span>
-      <h3 data-key="articleScienceTitle">
-        Young Minds, New Ideas
-      </h3>
-      <p data-key="articleScienceText">
-        Explore science, technology and the ideas
-        shaping the future.
-      </p>
-      <a href="#"
-         onclick="openArticle('science'); return false;"
-         data-key="readMore">
-         Read More →
-      </a>
     </article>
   </div>
 </section>
-<!-- ================= NEWS ================= -->
-<section id="news" class="section news-section">
-  <div class="section-title">
-    <span data-key="newsLabel">
-      NEWS
-    </span>
-    <h2 data-key="newsTitle">
-      What's happening?
+<!-- ================= EVENTS ================= -->
+<section id="events" class="section events-section">
+  <div class="section-heading center">
+    <span class="eyebrow">📅 ACTIVITIES</span>
+    <h2>
+      Upcoming Events
     </h2>
-    <p data-key="newsText">
-      Follow the latest news and updates from Youth Caring Heart.
+    <p>
+      Discover our upcoming activities and initiatives.
     </p>
   </div>
-  <div class="news-grid">
-    <article class="news-card">
-      <span>📢</span>
-      <h3 data-key="news1Title">
-        New Youth Activities
-      </h3>
-      <p data-key="news1Text">
-        New community activities will be announced soon.
-      </p>
-    </article>
-    <article class="news-card">
-      <span>🌱</span>
-      <h3 data-key="news2Title">
-        Green Berkane
-      </h3>
-      <p data-key="news2Text">
-        We are preparing new environmental initiatives.
-      </p>
-    </article>
-    <article class="news-card">
-      <span>🤝</span>
-      <h3 data-key="news3Title">
-        Join Our Community
-      </h3>
-      <p data-key="news3Text">
-        Young people can join us and participate in future projects.
-      </p>
-    </article>
-  </div>
-</section>
-<!-- ================= ENVIRONMENT ================= -->
-<section id="environment" class="green-section">
-  <div class="green-content">
-    <span data-key="environmentLabel">
-      🌱 ENVIRONMENT
-    </span>
-    <h2 data-key="environmentTitle">
-      Let's make Berkane a better place.
-    </h2>
-    <p data-key="environmentText">
-      We believe that young people can contribute to
-      protecting their local environment through
-      awareness, teamwork and positive action.
-    </p>
-    <a href="#activities"
-       class="button"
-       data-key="environmentButton">
-       Take Part
-    </a>
-  </div>
-</section>
-<!-- ================= ACTIVITIES ================= -->
-<section id="activities" class="section">
-  <div class="section-title">
-    <span data-key="activitiesLabel">
-      COMMUNITY
-    </span>
-    <h2 data-key="activitiesTitle">
-      Upcoming Activities
-    </h2>
-    <p data-key="activitiesText">
-      Discover activities and initiatives organized
-      by Youth Caring Heart.
-    </p>
-  </div>
-  <div class="activities">
-    <article class="activity-card">
-      <div class="activity-icon">
-        🌱
+  <div class="events-grid">
+    <article class="event-card">
+      <div class="event-date">
+        <strong>15</strong>
+        <span>SEP</span>
       </div>
-      <div>
-        <span data-key="activity1Category">
-          ENVIRONMENT
+      <div class="event-content">
+        <span class="event-category">
+          🌱 ENVIRONMENT
         </span>
-        <h3 data-key="activity1Title">
+        <h3>
           Community Clean-Up
         </h3>
-        <p data-key="activity1Text">
-          A youth activity focused on helping keep
-          public spaces cleaner.
+        <p>
+          A youth activity focused on keeping public spaces
+          cleaner and encouraging environmental responsibility.
         </p>
-        <a href="#join" data-key="activityButton">
+        <div class="event-info">
+          <span>📍 Berkane</span>
+          <span>🕙 10:00 AM</span>
+        </div>
+        <div class="countdown"
+             data-date="2026-09-15T10:00:00">
+          Loading...
+        </div>
+        <button class="event-button"
+                onclick="joinEvent('Community Clean-Up')">
           Join Activity →
-        </a>
+        </button>
       </div>
     </article>
-    <article class="activity-card">
-      <div class="activity-icon">
-        🌳
+    <article class="event-card">
+      <div class="event-date blue-date">
+        <strong>22</strong>
+        <span>SEP</span>
       </div>
-      <div>
-        <span data-key="activity2Category">
-          COMMUNITY
+      <div class="event-content">
+        <span class="event-category blue-text">
+          💡 YOUTH
         </span>
-        <h3 data-key="activity2Title">
-          Green Berkane
-        </h3>
-        <p data-key="activity2Text">
-          An initiative encouraging environmental
-          awareness and local action.
-        </p>
-        <a href="#join" data-key="activityButton">
-          Join Activity →
-        </a>
-      </div>
-    </article>
-    <article class="activity-card">
-      <div class="activity-icon">
-        💡
-      </div>
-      <div>
-        <span data-key="activity3Category">
-          YOUTH
-        </span>
-        <h3 data-key="activity3Title">
+        <h3>
           Youth Ideas Workshop
         </h3>
-        <p data-key="activity3Text">
-          A space where young people can share ideas
-          and develop positive projects.
+        <p>
+          A workshop where young people can share ideas and
+          develop positive projects.
         </p>
-        <a href="#join" data-key="activityButton">
+        <div class="event-info">
+          <span>📍 Berkane</span>
+          <span>🕑 14:00 PM</span>
+        </div>
+        <div class="countdown"
+             data-date="2026-09-22T14:00:00">
+          Loading...
+        </div>
+        <button class="event-button"
+                onclick="joinEvent('Youth Ideas Workshop')">
           Join Activity →
-        </a>
+        </button>
       </div>
+    </article>
+    <article class="event-card">
+      <div class="event-date orange-date">
+        <strong>30</strong>
+        <span>SEP</span>
+      </div>
+      <div class="event-content">
+        <span class="event-category orange-text">
+          🤝 COMMUNITY
+        </span>
+        <h3>
+          Community Day
+        </h3>
+        <p>
+          A community gathering focused on youth participation,
+          teamwork and positive action.
+        </p>
+        <div class="event-info">
+          <span>📍 Berkane</span>
+          <span>🕚 11:00 AM</span>
+        </div>
+        <div class="countdown"
+             data-date="2026-09-30T11:00:00">
+          Loading...
+        </div>
+        <button class="event-button"
+                onclick="joinEvent('Community Day')">
+          Join Activity →
+        </button>
+      </div>
+    </article>
+  </div>
+</section>
+<!-- ================= MAGAZINE ================= -->
+<section id="magazine" class="section magazine-section">
+  <div class="section-heading">
+    <span class="eyebrow">OUR MAGAZINE</span>
+    <h2>
+      Stories that inspire action.
+    </h2>
+    <p>
+      Discover stories and ideas about youth, science,
+      technology and the environment.
+    </p>
+  </div>
+  <div class="magazine-grid">
+    <article class="magazine-card">
+      <div class="magazine-icon">🌱</div>
+      <span>ENVIRONMENT</span>
+      <h3>Building a Greener Berkane</h3>
+      <p>
+        How young people can help create a cleaner and
+        greener community.
+      </p>
+      <button onclick="openArticle('environment')">
+        Read More →
+      </button>
+    </article>
+    <article class="magazine-card">
+      <div class="magazine-icon">💡</div>
+      <span>YOUTH</span>
+      <h3>The Power of Youth Ideas</h3>
+      <p>
+        Ideas can become meaningful projects when young
+        people work together.
+      </p>
+      <button onclick="openArticle('youth')">
+        Read More →
+      </button>
+    </article>
+    <article class="magazine-card">
+      <div class="magazine-icon">🔬</div>
+      <span>SCIENCE</span>
+      <h3>Young Minds, New Ideas</h3>
+      <p>
+        Exploring science and technology with young people.
+      </p>
+      <button onclick="openArticle('science')">
+        Read More →
+      </button>
     </article>
   </div>
 </section>
 <!-- ================= GALLERY ================= -->
-<section id="gallery" class="section">
-  <div class="section-title">
-    <span data-key="galleryLabel">
-      OUR GALLERY
-    </span>
-    <h2 data-key="galleryTitle">
-      Moments of positive action.
-    </h2>
-    <p data-key="galleryText">
-      Discover moments from our community,
-      environmental and youth activities.
+<section id="gallery" class="section gallery-section">
+  <div class="section-heading center">
+    <span class="eyebrow">OUR GALLERY</span>
+    <h2>Moments of positive action.</h2>
+    <p>
+      Discover moments from our community activities.
     </p>
   </div>
-  <div class="gallery">
-    <div class="gallery-item">
-      <img
-        src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?auto=format&fit=crop&w=800&q=80"
-        alt="Volunteering">
-      <span data-key="gallery1">
-        Volunteering
-      </span>
+  <div class="gallery-grid">
+    <div class="gallery-item large">
+      <img src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?auto=format&fit=crop&w=1200&q=80">
+      <span>Volunteering</span>
     </div>
     <div class="gallery-item">
-      <img
-        src="https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=800&q=80"
-        alt="Environment">
-      <span data-key="gallery2">
-        Environment
-      </span>
+      <img src="https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=900&q=80">
+      <span>Environment</span>
     </div>
     <div class="gallery-item">
-      <img
-        src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80"
-        alt="Youth">
-      <span data-key="gallery3">
-        Youth
-      </span>
+      <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=900&q=80">
+      <span>Youth</span>
     </div>
     <div class="gallery-item">
-      <img
-        src="https://images.unsplash.com/photo-1542810634-71277d95dcbb?auto=format&fit=crop&w=800&q=80"
-        alt="Community">
-      <span data-key="gallery4">
-        Community
-      </span>
+      <img src="https://images.unsplash.com/photo-1542810634-71277d95dcbb?auto=format&fit=crop&w=900&q=80">
+      <span>Community</span>
     </div>
   </div>
 </section>
 <!-- ================= MEMBERS ================= -->
 <section id="members" class="members-section">
-  <div class="members-content">
-    <span data-key="membersLabel">
-      👥 MEMBERS AREA
-    </span>
-    <h2 data-key="membersTitle">
-      A space for our members.
-    </h2>
-    <p data-key="membersText">
-      Members can access community discussions,
-      meetings and shared activities.
-    </p>
-    <div id="login-box" class="member-box">
-      <h3 data-key="loginTitle">
-        Member Access
-      </h3>
-      <input
-        type="text"
-        id="memberName"
-        placeholder="Your name">
-      <input
-        type="password"
-        id="memberCode"
-        placeholder="Member code">
-      <button
-        class="button"
-        onclick="memberLogin()"
-        data-key="loginButton">
+  <div class="members-layout">
+    <div class="members-intro">
+      <span class="eyebrow">👥 MEMBERS AREA</span>
+      <h2>
+        Your community.<br>
+        <span>Your space.</span>
+      </h2>
+      <p>
+        Members can access meetings, discussions and
+        activities in one organized space.
+      </p>
+    </div>
+    <div class="login-card" id="login-box">
+      <div class="login-icon">
+        🔐
+      </div>
+      <h3>Member Access</h3>
+      <p>
+        Enter your member information.
+      </p>
+      <input id="memberName"
+             type="text"
+             placeholder="Your name">
+      <input id="memberCode"
+             type="password"
+             placeholder="Member code">
+      <button class="primary-button full"
+              onclick="memberLogin()">
         Enter Members Area
       </button>
-      <p id="login-message"></p>
+      <div id="login-message"></div>
+      <small>
+        Demo code: <strong>YCH2026</strong>
+      </small>
     </div>
-    <div id="member-dashboard" class="member-dashboard">
-      <h3>
-        ❤️
-        <span data-key="welcomeMember">
-          Welcome
-        </span>,
-        <span id="loggedMember"></span>
-      </h3>
-      <div class="member-actions">
-        <button
-          onclick="openMeetingRoom()"
-          data-key="meetingButton">
-          💬 Meeting Room
-        </button>
-        <button
-          onclick="logoutMember()"
-          data-key="logoutButton">
+    <div class="member-dashboard"
+         id="member-dashboard">
+      <div class="dashboard-header">
+        <div>
+          <span>MEMBER DASHBOARD</span>
+          <h3>
+            Welcome,
+            <strong id="loggedMember"></strong>
+          </h3>
+        </div>
+        <button onclick="logoutMember()">
           Log Out
+        </button>
+      </div>
+      <div class="dashboard-grid">
+        <button onclick="openMeetingRoom()">
+          <span>🎥</span>
+          <strong>Meeting Room</strong>
+          <small>Join community meetings</small>
+        </button>
+        <button onclick="scrollToEvents()">
+          <span>📅</span>
+          <strong>Events</strong>
+          <small>View upcoming activities</small>
+        </button>
+        <button onclick="toggleNotifications()">
+          <span>🔔</span>
+          <strong>Notifications</strong>
+          <small>View your updates</small>
         </button>
       </div>
     </div>
   </div>
 </section>
 <!-- ================= MEETING ROOM ================= -->
-<section id="meeting-room" class="meeting-section">
-  <div class="meeting-content">
-    <span data-key="meetingLabel">
-      💬 MEMBERS MEETING ROOM
-    </span>
-    <h2 data-key="meetingTitle">
-      Community Meeting Room
-    </h2>
-    <p data-key="meetingText">
-      A private space for members to discuss ideas,
-      prepare activities and communicate with the team.
-    </p>
-    <div class="meeting-panel">
-      <div class="meeting-header">
-        <strong data-key="meetingOnline">
-          🟢 Members Meeting
-        </strong>
-        <span data-key="meetingPrivate">
-          Members only
-        </span>
+<section id="meeting-room"
+         class="meeting-section">
+  <div class="meeting-container">
+    <div class="meeting-topbar">
+      <div>
+        <span class="live-dot">● LIVE</span>
+        <h2>Members Meeting</h2>
+        <p>Youth Caring Heart • Private Room</p>
       </div>
-      <div id="messages" class="messages">
-        <div class="message">
-          <strong>
-            Youth Caring Heart
-          </strong>
-          <p data-key="welcomeMessage">
-            Welcome to the members meeting room.
-          </p>
+      <button class="leave-button"
+              onclick="closeMeetingRoom()">
+        Leave Meeting
+      </button>
+    </div>
+    <div class="meeting-layout">
+      <!-- VIDEO -->
+      <div class="video-area">
+        <div class="video-main">
+          <div class="camera-placeholder"
+               id="camera-placeholder">
+            <div class="camera-icon">
+              🎥
+            </div>
+            <h3>Your Camera</h3>
+            <p>
+              Camera preview will appear here.
+            </p>
+            <button onclick="startCamera()">
+              Enable Camera
+            </button>
+          </div>
+          <video id="local-video"
+                 autoplay
+                 muted
+                 playsinline>
+          </video>
+          <div class="video-name">
+            <span id="video-member-name">
+              You
+            </span>
+          </div>
+        </div>
+        <div class="meeting-controls">
+          <button id="mic-button"
+                  onclick="toggleMic()">
+            🎙️
+            <span>Mute</span>
+          </button>
+          <button id="camera-button"
+                  onclick="toggleCamera()">
+            🎥
+            <span>Camera</span>
+          </button>
+          <button onclick="shareScreen()">
+            🖥️
+            <span>Share</span>
+          </button>
+          <button class="danger-control"
+                  onclick="closeMeetingRoom()">
+            ☎
+            <span>Leave</span>
+          </button>
         </div>
       </div>
-      <div class="message-form">
-        <input
-          type="text"
-          id="meetingMessage"
-          placeholder="Write a message...">
-        <button
-          onclick="sendMessage()"
-          data-key="sendButton">
-          Send
-        </button>
-      </div>
+      <!-- CHAT -->
+      <aside class="chat-area">
+        <div class="chat-header">
+          <div>
+            <strong>Meeting Chat</strong>
+            <span>Members only</span>
+          </div>
+          <span>🟢</span>
+        </div>
+        <div id="messages"
+             class="messages">
+          <div class="chat-message system-message">
+            <strong>Youth Caring Heart</strong>
+            <p>
+              Welcome to the members meeting room.
+            </p>
+            <small>
+              System
+            </small>
+          </div>
+        </div>
+        <div class="chat-input">
+          <input id="meetingMessage"
+                 type="text"
+                 placeholder="Write a message...">
+          <button onclick="sendMessage()">
+            ➤
+          </button>
+        </div>
+      </aside>
     </div>
   </div>
 </section>
 <!-- ================= JOIN ================= -->
-<section id="join" class="join-section">
+<section id="join"
+         class="join-section">
   <div class="join-content">
-    <span data-key="joinLabel">
+    <span class="eyebrow">
       🤝 GET INVOLVED
     </span>
-    <h2 data-key="joinTitle">
+    <h2>
       Join Youth Caring Heart
     </h2>
-    <p data-key="joinText">
+    <p>
       Want to participate in our activities,
       share an idea or support our initiative?
     </p>
-    <a
-      href="https://forms.gle/dC7MfyjmfxGUzMxo6"
-      target="_blank"
-      class="button"
-      id="join-button"
-      data-key="joinButton">
-      Join Us
+    <a href="https://forms.gle/dC7MfyjmfxGUzMxo6"
+       target="_blank"
+       class="primary-button">
+      Join Us →
     </a>
-    <p
-      class="donation-note"
-      data-key="donation">
-      ❤️ Support our initiative through official
-      and transparent channels.
-    </p>
   </div>
 </section>
 </main>
 <!-- ================= ARTICLE MODAL ================= -->
-<div id="article-modal" class="article-modal">
-  <div class="article-modal-content">
-    <button
-      class="close-modal"
-      onclick="closeArticle()">
+<div id="article-modal"
+     class="modal">
+  <div class="modal-content">
+    <button class="modal-close"
+            onclick="closeArticle()">
       ×
     </button>
     <span id="article-category">
       ARTICLE
     </span>
     <h2 id="article-title">
-      Article Title
+      Article
     </h2>
     <p id="article-text">
-      Article content will appear here.
+      Article content.
     </p>
   </div>
 </div>
 <!-- ================= FOOTER ================= -->
 <footer>
-  <div class="footer-logo">
-    ❤️ Youth Caring Heart
+  <div class="footer-brand">
+    ♥ Youth Caring Heart
   </div>
-  <p data-key="footer">
+  <p>
     Youth • Community • Environment • Action
   </p>
   <small>
     © 2026 Youth Caring Heart — Berkane, Morocco
   </small>
 </footer>
-<!-- JavaScript -->
 <script src="script.js"></script>
 </body>
 </html>
